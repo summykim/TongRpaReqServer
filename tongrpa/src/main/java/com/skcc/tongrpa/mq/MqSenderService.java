@@ -12,20 +12,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class MqSenderService {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
 
-    private static final String EXCHANGE_NAME = "tong-rpa-exchange";
+	private static final String EXCHANGE_NAME = "tong-rpa-exchange";
 
-    private static final Logger logger = LoggerFactory.getLogger(MqSenderService.class);
+	private static final Logger logger = LoggerFactory.getLogger(MqSenderService.class);
 
 
-    
-    public void sendMqMessage(String routingKey, String json) {
-    	
-        logger.info(" sending the message with routing key {}", routingKey);
 
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, routingKey, json);
+	public void sendMqMessage(String routingKey, String json) {
 
-}
+		logger.info(" sending the message with routing key {}", routingKey);
+
+		rabbitTemplate.convertAndSend(EXCHANGE_NAME, routingKey, json);
+
+	}
 }
