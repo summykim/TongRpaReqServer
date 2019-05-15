@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.skcc.tongrpa.agent.agentDao" >
+
+   <select id="getAgentList" resultType="com.skcc.tongrpa.agent.agentModel">
+       select * from JOB_AGENT
+   </select>    
+   <select id="getAgentInfo" resultType="com.skcc.tongrpa.agent.agentModel">
+       select * from JOB_AGENT WHERE AGENT_ID=#{agentId}
+   </select>    
+      
+  <insert id="insertAgent">
+    INSERT INTO JOB_AGENT(AGENT_ID, AGENT_NM, AGENT_DESC, AGENT_UID,AGENT_STATUS,REG_USER)
+    VALUES(#{agentId}, #{agentNm}, #{agentDesc}, #{agentUid}, #{agentStatus}, #{regUser})
+  </insert>
+ 
+  <update id="updateAgentInfo">
+    UPDATE JOB_AGENT 
+    SET
+     AGENT_NM= #{agentNm},
+     AGENT_DESC = #{agentDesc},
+     AGENT_UID = #{agentUid},
+     AGENT_STATUS= #{agentStatus}
+    WHERE AGENT_ID = #{agentId}
+  </update>
+  
+   <update id="updateAgentUid">
+    UPDATE JOB_AGENT 
+    SET
+     AGENT_UID = #{agentUid}
+    WHERE AGENT_ID = #{agentId}
+  </update>
+  
+   <update id="updateAgentStatus">
+    UPDATE JOB_AGENT 
+    SET
+     AGENT_STATUS= #{agentStatus}
+    WHERE AGENT_ID = #{agentId}
+  </update> 
+  <delete id="deleteAgent">
+    DELETE FROM JOB_AGENT WHERE AGENT_ID = #{agentId}
+  </delete>
+  
+</mapper>

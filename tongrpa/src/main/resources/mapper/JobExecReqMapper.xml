@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.skcc.tongrpa.jobReq.JobExecReqDao" >
+
+   <select id="getJobExecReqList" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">
+       select * from JOB_EXEC_REQ_LOG
+   </select>    
+   <select id="getJobExecReqInfo" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">
+       select * from JOB_EXEC_REQ_LOG WHERE EXEC_REQ_ID=#{jobId}
+   </select>    
+      
+  <insert id="insertJobExecReq">
+    INSERT INTO JOB_EXEC_REQ_LOG(EXEC_REQ_ID, AGENT_ID, JOB_ID, REG_USER)
+    VALUES(#{jobExecReqId}, #{agentId}, #{jobId}, #{regUser})
+  </insert>
+
+   <update id="updateJobExecReqInfo">
+    UPDATE JOB_EXEC_REQ_LOG 
+    SET
+     JOB_STATUS= #{jobStatus}
+    WHERE EXEC_REQ_ID = #{jobExecReqId}
+  </update>
+  
+</mapper>

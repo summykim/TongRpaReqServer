@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.skcc.tongrpa.job.jobDao" >
+
+   <select id="getJobList" resultType="com.skcc.tongrpa.job.jobModel">
+       select * from JOB_INFO
+   </select>    
+   <select id="getJobInfo" resultType="com.skcc.tongrpa.job.jobModel">
+       select * from JOB_INFO WHERE JOB_ID=#{jobId}
+   </select>    
+      
+  <insert id="insertJob">
+    INSERT INTO JOB_INFO(JOB_ID, JOB_NM, JOB_DESC, JOB_DATA,JOB_SEQ,AUTH_USER,REG_USER)
+    VALUES(#{jobId}, #{jobNm}, #{jobDesc}, #{jobData}, #{jobSeq},#{authUser}, #{regUser})
+  </insert>
+
+   <update id="updateJobInfo">
+    UPDATE JOB_INFO 
+    SET
+     JOB_NM= #{jobNm},
+     JOB_DESC = #{jobDesc},
+     JOB_DATA = #{jobData}
+    WHERE JOB_ID = #{jobId}
+  </update>
+
+  <delete id="deleteJob">
+    DELETE FROM JOB_INFO WHERE JOB_ID = #{jobId}
+  </delete>
+  
+</mapper>
