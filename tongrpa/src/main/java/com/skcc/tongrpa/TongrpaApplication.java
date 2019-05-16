@@ -21,6 +21,7 @@ public class TongrpaApplication {
 
     
 	public final static String MESSAGE_QUEUE_NAME = "tong-rpa-queue";
+	public final static String MESSAGE_EXCHANGE_NAME = "tongrpa-result-exchange";
 	@Bean
 	public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
 		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
@@ -39,7 +40,7 @@ public class TongrpaApplication {
 
 	@Bean
 	TopicExchange exchange() {
-		return new TopicExchange("tong-rpa-exchange",true,true);
+		return new TopicExchange(MESSAGE_EXCHANGE_NAME,true,true);
 	}
 
 	@Bean

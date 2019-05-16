@@ -8,6 +8,18 @@
    <select id="getAgentInfo" resultType="com.skcc.tongrpa.agent.agentModel">
        select * from JOB_AGENT WHERE AGENT_ID=#{agentId}
    </select>    
+   
+   
+    <select id="getIdleAgentList" resultType="com.skcc.tongrpa.agent.agentModel">
+       SELECT * FROM (
+		SELECT AGENT_ID
+		  ,(SELECT MAX(UPD_DTM)  FROM tong.JOB_EXEC_REQ_LOG  JER WHERE JER.AGENT_ID=JA.AGENT_ID) as EXEC_DTM, AGENT_STATUS
+		  FROM tong.JOB_AGENT  JA
+		  WHERE  AGENT_STATUS IN ('IDLE','BUSY')  ORDER BY AGENT_STATUS  ) A 
+		ORDER BY A.AGENT_STATUS DESC  ,A.EXEC_DTM ASC
+   </select>    
+   
+   
       
   <insert id="insertAgent">
     INSERT INTO JOB_AGENT(AGENT_ID, AGENT_NM, AGENT_DESC, AGENT_UID,AGENT_STATUS,REG_USER)

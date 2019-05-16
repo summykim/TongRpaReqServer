@@ -1,5 +1,7 @@
 package com.skcc.tongrpa.jobReq;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +26,11 @@ public class JobExecReqService {
 	/*
 	 * Job 정보 조회
 	 */
-	public JobExecReqModel getJobExecReqInfo(String agentId){
+	public JobExecReqModel getJobExecReqInfo(String jobReqId){
 
 
 
-		return jobReqdao.getJobExecReqInfo(agentId);
+		return jobReqdao.getJobExecReqInfo(jobReqId);
 
 	}
 
@@ -44,8 +46,20 @@ public class JobExecReqService {
 	/*
 	 * Job 추가 
 	 */
-	public int  insertJobExecReq(String jobExecReqId,String agentId,String jobId,String regUser){
-		return jobReqdao.insertJobExecReq(  jobExecReqId, agentId, jobId,  regUser);
+	public  String   insertJobExecReq(String agentId,String jobId,String regUser){
+		String resultKey="";
+		String curTimekey=new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+
+		String jobExecReqId=agentId+curTimekey;
+		logger.debug("jobExecReqId : ",jobExecReqId);
+		int result =jobReqdao.insertJobExecReq(  jobExecReqId, agentId, jobId,  regUser);
+		
+		if(result>0) {
+			resultKey= jobExecReqId;
+		}
+		
+		return resultKey;
+		
 	}
 	/*
 	 * Job 정보  수정

@@ -2,16 +2,30 @@ package com.skcc.tongrpa.job;
 /*
  * JOB 정보
  */
-public class jobModel {
+public class JobModel {
 	private String  job_id; //job 아이디',
 	private String  job_nm; //job 명',
 	private String  job_desc; //job상세설명',
 	private String  job_data; //job 실행 데이터(스크립트소스, url)',
-	private String  job_seq; //사용자별job seq',
+	private String  job_typ; //job구분: RST/PY',	
+	private int  job_seq; //사용자별job seq',
 	private String  auth_user; // JOB 소유자
 	private String  reg_user ;  // 등록자 
 	private String  reg_dtm ;  //등록일,
 	private String  upd_dtm ;  //업데이트일시
+
+	public int getJob_seq() {
+		return job_seq;
+	}
+	public void setJob_seq(int job_seq) {
+		this.job_seq = job_seq;
+	}
+	public String getJob_typ() {
+		return job_typ;
+	}
+	public void setJob_typ(String job_typ) {
+		this.job_typ = job_typ;
+	}
 	public String getJob_id() {
 		return job_id;
 	}
@@ -36,12 +50,7 @@ public class jobModel {
 	public void setJob_data(String job_data) {
 		this.job_data = job_data;
 	}
-	public String getJob_seq() {
-		return job_seq;
-	}
-	public void setJob_seq(String job_seq) {
-		this.job_seq = job_seq;
-	}
+
 	public String getAuth_user() {
 		return auth_user;
 	}

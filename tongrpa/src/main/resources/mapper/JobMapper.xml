@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.skcc.tongrpa.job.jobDao" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.skcc.tongrpa.job.JobDao" >
 
-   <select id="getJobList" resultType="com.skcc.tongrpa.job.jobModel">
+   <select id="getJobList" parameterType="hashmap" resultType="com.skcc.tongrpa.job.JobModel">
        select * from JOB_INFO
-   </select>    
-   <select id="getJobInfo" resultType="com.skcc.tongrpa.job.jobModel">
+       WHERE 1=1
+ 		<if test="authUser !=null and  authUser !=''">
+         AND AUTH_USER=#{authUser}
+		</if>
+		<if test="searchText !=null and  searchText !=''">
+		 AND JOB_DESC LIKE  CONCAT('%', #{searchText} ,'%')
+		</if>		
+		<if test="searchText !=null and  searchText !=''">
+		 AND JOB_DESC LIKE  CONCAT('%', #{searchText} ,'%')
+		</if>
+    </select>    
+   <select id="getJobInfo" resultType="com.skcc.tongrpa.job.JobModel">
        select * from JOB_INFO WHERE JOB_ID=#{jobId}
    </select>    
-      
-  <insert id="insertJob">
-    INSERT INTO JOB_INFO(JOB_ID, JOB_NM, JOB_DESC, JOB_DATA,JOB_SEQ,AUTH_USER,REG_USER)
-    VALUES(#{jobId}, #{jobNm}, #{jobDesc}, #{jobData}, #{jobSeq},#{authUser}, #{regUser})
+   
+    <select id="getJobSeqByUser" resultType="com.skcc.tongrpa.job.JobModel">
+       SELECT   max(job_seq)+1  as JOB_SEQ
+           FROM tong.JOB_INFO where  auth_user=#{authUser}
+   </select>      
+   <insert id="insertJob">
+
+    INSERT INTO JOB_INFO(JOB_ID, JOB_NM, JOB_DESC, JOB_DATA,JOB_TYP,JOB_SEQ,AUTH_USER,REG_USER)
+    VALUES(#{jobId}, #{jobNm}, #{jobDesc}, #{jobData}, #{jobTyp}, #{jobSeq},#{authUser}, #{regUser})
   </insert>
 
    <update id="updateJobInfo">
@@ -19,7 +35,8 @@
     SET
      JOB_NM= #{jobNm},
      JOB_DESC = #{jobDesc},
-     JOB_DATA = #{jobData}
+     JOB_DATA = #{jobData},
+     JOB_TYP= #{jobTyp}
     WHERE JOB_ID = #{jobId}
   </update>
 

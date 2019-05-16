@@ -32,6 +32,17 @@ public class agentService {
 
 	}
 	
+	/*
+	 * Idle 에이전트 조회
+	 */
+	public List<agentModel> getIdleAgentList(){
+
+
+
+		return agentdao.getIdleAgentList();
+
+	}
+
 	
 	/*
 	 * Agent 전체  목록  조회

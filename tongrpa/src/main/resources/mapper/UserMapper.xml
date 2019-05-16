@@ -4,6 +4,7 @@
 
    <select id="getUserList" resultType="com.skcc.tongrpa.user.UserModel">
        select * from USER_INFO
+       
    </select>    
    <select id="getUserInfo" resultType="com.skcc.tongrpa.user.UserModel">
        select * from USER_INFO WHERE USER_ID=#{userId}

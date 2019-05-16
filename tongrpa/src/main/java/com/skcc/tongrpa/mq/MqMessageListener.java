@@ -1,6 +1,7 @@
 package com.skcc.tongrpa.mq;
 
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -47,18 +48,6 @@ public class MqMessageListener {
         log.info("Received OBJ<" + mappedValue + ">");
 
     }
-    
-    public void receiveMessage(byte[] bMessage) {
-        String message="";
-		try {
-			message = new String(bMessage, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	log.info("Received byte <" + message+ ">");
 
 
-
-    }
 }

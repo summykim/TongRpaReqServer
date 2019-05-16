@@ -18,6 +18,7 @@ public interface agentDao {
 	public int updateAgentUid(String agentId,String agentUid);
 	public int updateAgentStatus(String agentId,String agentStatus);	
 	public int deleteAgent(String agentId);
+	public List<agentModel> getIdleAgentList();
 
 }
 

@@ -12,19 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skcc.tongrpa.mq.MqSenderService;
 
 @RestController
-public class jobController {
+public class JobController {
 
 	@Autowired
 	private MqSenderService mqSenderService;
 	
 	@Autowired
-	private jobService jobInfoService;
+	private JobService jobInfoService;
     
     /* agent 정보조   */
 	@RequestMapping("/jobList")
-	public @ResponseBody List<jobModel> getJobList() {
+	public @ResponseBody List<JobModel> getJobList(@RequestParam(value="searchText") String searchText,
+			@RequestParam(value="authUser") String authUser) {
 
-		List<jobModel> list=  jobInfoService.getJobList();
+		List<JobModel> list=  jobInfoService.getJobList(searchText,authUser);
 
 		return   list;
 
@@ -32,25 +33,25 @@ public class jobController {
 
 	/* Job 정보 조회 */
 	@RequestMapping("searchJob")
-	public @ResponseBody jobModel  searchJob(@RequestParam(value="jobId") String jobId) {
-		jobModel vo= jobInfoService.getJobInfo(jobId);
+	public @ResponseBody JobModel  searchJob(@RequestParam(value="jobId") String jobId) {
+		JobModel vo= jobInfoService.getJobInfo(jobId);
 		return vo ;
 	}
 
 
 	/* Job 정보  추가 */
 	@RequestMapping("insertJob")
-	public @ResponseBody HashMap<String, Object>  inserJob(@RequestParam(value="jobId") String jobId,
+	public @ResponseBody HashMap<String, Object>  inserJob(
 			@RequestParam(value="jobNm") String jobNm,
 			@RequestParam(value="jobDesc") String jobDesc,
 			@RequestParam(value="jobData") String jobData,
-			@RequestParam(value="jobSeq") String jobSeq,
+			@RequestParam(value="jobTyp") String jobTyp,
 			@RequestParam(value="authUser") String authUser,
 			@RequestParam(value="regUser") String regUser ) {
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
-			resunt_cnt= jobInfoService.insertJob(jobId, jobNm, jobDesc, jobData, jobSeq, authUser, regUser);
+			resunt_cnt= jobInfoService.insertJob( jobNm, jobDesc, jobData,jobTyp,  authUser, regUser);
 
 		}catch(Exception ex) {
 			resultMap.put("Exception", ex);
@@ -64,13 +65,14 @@ public class jobController {
 	public @ResponseBody HashMap<String, Object>  updateJob(@RequestParam(value="jobId") String jobId,
 			@RequestParam(value="jobNm") String jobNm,
 			@RequestParam(value="jobDesc") String jobDesc,
-			@RequestParam(value="jobData") String jobData) {
+			@RequestParam(value="jobData") String jobData,
+			@RequestParam(value="jobTyp") String jobTyp) {
 
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
 
-			resunt_cnt= jobInfoService.updateJobInfo(jobId, jobNm, jobDesc, jobData);
+			resunt_cnt= jobInfoService.updateJobInfo(jobId, jobNm, jobDesc, jobData,jobTyp);
 		}catch(Exception ex) {
 			resultMap.put("Exception", ex);
 		}

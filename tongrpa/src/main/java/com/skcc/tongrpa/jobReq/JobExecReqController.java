@@ -40,19 +40,21 @@ public class JobExecReqController {
 
 	/* Job 정보  추가 */
 	@RequestMapping("insertJobExecReq")
-	public @ResponseBody HashMap<String, Object>  inserJob(@RequestParam(value="jobExecReqId") String jobExecReqId,
+	public @ResponseBody HashMap<String, Object>  inserJob(
 			@RequestParam(value="agentId") String agentId,
 			@RequestParam(value="jobId") String jobId,
 			@RequestParam(value="regUser") String regUser) {
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
-		int resunt_cnt=0;
+		String  JobExecReqId="";
+		JobExecReqModel jerm=null;
 		try {
-			resunt_cnt= jobReqService.insertJobExecReq(  jobExecReqId, agentId, jobId,  regUser);
+			JobExecReqId= jobReqService.insertJobExecReq(agentId, jobId,  regUser);
+			jerm =jobReqService.getJobExecReqInfo(JobExecReqId);
 
 		}catch(Exception ex) {
 			resultMap.put("Exception", ex);
 		}
-		resultMap.put("result_cnt", resunt_cnt);
+		resultMap.put("result", jerm);
 		return resultMap ;
 	}
 
