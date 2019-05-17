@@ -6,16 +6,16 @@
        SELECT JE.*,AI.AGENT_STATUS from JOB_EXEC_REQ_LOG JE, JOB_AGENT AI 
         WHERE JE.AGENT_ID=AI.AGENT_ID
        <if test="jobExecReqId !=null and  jobExecReqId !=''">
-         AND EXEC_REQ_ID=#{jobExecReqId}
+         AND JE.EXEC_REQ_ID=#{jobExecReqId}
 		</if>
 		<if test="agentId !=null and  agentId !=''">
-		 AND AGENT_ID=#{agentId}
+		 AND JE.AGENT_ID=#{agentId}
 		</if>		
 		<if test="jobId !=null and  jobId !=''">
-		 AND JOB_ID=#{jobId}
+		 AND JE.JOB_ID=#{jobId}
 		</if>
 		<if test="jobStatus !=null and  jobStatus !=''">
-		 AND JOB_STATUS=#{jobStatus}
+		 AND JE.JOB_STATUS=#{jobStatus}
 		</if>
    </select>    
    <select id="getJobExecReqInfo" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">

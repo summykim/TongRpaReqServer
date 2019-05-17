@@ -25,9 +25,10 @@ public class JobExecReqController {
 	public @ResponseBody List<JobExecReqModel> getJobList(
 			@RequestParam(value="agentId") String agentId,
 			@RequestParam(value="jobId") String jobId,
+			@RequestParam(value="jobExecReqId") String jobExecReqId,
 			@RequestParam(value="jobStatus") String jobStatus) {
 
-		List<JobExecReqModel> list=  jobReqService.getJobExecReqList( agentId, jobId, jobStatus);
+		List<JobExecReqModel> list=  jobReqService.getJobExecReqList( agentId, jobId, jobStatus,jobExecReqId);
 
 		return   list;
 
