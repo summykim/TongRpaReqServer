@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface JobExecReqDao {
-	public List<JobExecReqModel> getJobExecReqList();
+	public List<JobExecReqModel> getJobExecReqList(String agentId,String jobId,String jobStatus);
 	public JobExecReqModel getJobExecReqInfo(String jobExecReqId);
 	public int insertJobExecReq(String jobExecReqId,String agentId,String jobId,String regUser);
 	public int updateJobExecReqInfo(String jobExecReqId,String jobStatus);

@@ -27,7 +27,7 @@ public class JobExecReqController {
 			@RequestParam(value="jobId") String jobId,
 			@RequestParam(value="jobStatus") String jobStatus) {
 
-		List<JobExecReqModel> list=  jobReqService.getJobExecReqList();
+		List<JobExecReqModel> list=  jobReqService.getJobExecReqList( agentId, jobId, jobStatus);
 
 		return   list;
 
