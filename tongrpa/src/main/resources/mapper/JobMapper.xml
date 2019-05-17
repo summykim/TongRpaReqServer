@@ -13,7 +13,7 @@
 		 AND JOB_DESC LIKE  CONCAT('%', #{searchText} ,'%')
 		</if>		
 		<if test="searchText !=null and  searchText !=''">
-		 AND JOB_DESC LIKE  CONCAT('%', #{searchText} ,'%')
+		 AND JOB_NM LIKE  CONCAT('%', #{searchText} ,'%')
 		</if>
     </select>    
    <select id="getJobInfo" resultType="com.skcc.tongrpa.job.JobModel">

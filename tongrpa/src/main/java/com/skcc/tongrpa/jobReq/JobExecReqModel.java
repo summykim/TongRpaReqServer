@@ -10,6 +10,15 @@ public class JobExecReqModel {
 	private String  reg_user ;  // 등록자 
 	private String  reg_dtm ;  //등록일,
 	private String  upd_dtm ;  //업데이트일시
+	private String  agent_status ;  //agent상태
+	
+	
+	public String getAgent_status() {
+		return agent_status;
+	}
+	public void setAgent_status(String agent_status) {
+		this.agent_status = agent_status;
+	}
 	public String getExec_req_id() {
 		return exec_req_id;
 	}

@@ -3,7 +3,17 @@
 <mapper namespace="com.skcc.tongrpa.jobReq.JobExecReqDao" >
 
    <select id="getJobExecReqList" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">
-       select * from JOB_EXEC_REQ_LOG
+       SELECT JE.*,AI.AGENT_STATUS from JOB_EXEC_REQ_LOG JE, JOB_AGENT AI 
+        WHERE JE.AGENT_ID=AI.AGENT_ID
+       <if test="jobExecReqId !=null and  jobExecReqId !=''">
+         AND EXEC_REQ_ID=#{jobExecReqId}
+		</if>
+		<if test="agentId !=null and  agentId !=''">
+		 AND AGENT_ID=#{agentId}
+		</if>		
+		<if test="jobId !=null and  jobId !=''">
+		 AND JOB_ID=#{jobId}
+		</if>
    </select>    
    <select id="getJobExecReqInfo" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">
        select * from JOB_EXEC_REQ_LOG WHERE EXEC_REQ_ID=#{jobId}

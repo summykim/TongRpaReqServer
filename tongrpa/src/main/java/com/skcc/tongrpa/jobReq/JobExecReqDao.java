@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.skcc.tongrpa.sample.MapDto;
-
 /*
  *  Job실행요청 정보 관리 DAO
  */

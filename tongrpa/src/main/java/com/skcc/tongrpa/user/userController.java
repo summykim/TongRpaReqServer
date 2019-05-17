@@ -3,7 +3,6 @@ package com.skcc.tongrpa.user;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.skcc.tongrpa.mq.MqSenderService;
 
 @RestController
 public class userController {
@@ -90,4 +87,7 @@ public class userController {
 		resultMap.put("result_cnt", resunt_cnt);
 		return resultMap ;
 	}               
+	
+
+
 }
