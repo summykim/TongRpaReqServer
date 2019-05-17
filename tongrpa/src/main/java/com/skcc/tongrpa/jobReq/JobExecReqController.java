@@ -22,7 +22,10 @@ public class JobExecReqController {
     
     /*  Job실행 요청  정보 목록 조회   */
 	@RequestMapping("/jobExecReqList")
-	public @ResponseBody List<JobExecReqModel> getJobList() {
+	public @ResponseBody List<JobExecReqModel> getJobList(
+			@RequestParam(value="agentId") String agentId,
+			@RequestParam(value="jobId") String jobId,
+			@RequestParam(value="jobStatus") String jobStatus) {
 
 		List<JobExecReqModel> list=  jobReqService.getJobExecReqList();
 
