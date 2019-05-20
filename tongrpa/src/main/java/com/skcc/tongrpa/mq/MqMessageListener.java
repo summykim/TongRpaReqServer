@@ -131,7 +131,7 @@ public class MqMessageListener {
 		log.debug("mqRecvModel :",mqRecvModel);
 		if(mqRecvModel!=null) {//수신값 존재합
 
-			    String resType=mqRecvModel.getRes_type();
+			    String resType=mqRecvModel.getRes_typ();
 			    String agentId=mqRecvModel.getAgent_id();
 				log.info("getReq_type <" + resType + ">");
 				log.info("getAgent_id <" + mqRecvModel.getAgent_id() + ">");

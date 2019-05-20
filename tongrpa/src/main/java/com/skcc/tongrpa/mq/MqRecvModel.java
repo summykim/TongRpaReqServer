@@ -3,17 +3,17 @@ package com.skcc.tongrpa.mq;
  *  Mq 수신정보  정
  */
 public class MqRecvModel {
-	private String  res_type ;  //수신구분
+	private String  res_typ ;  //수신구분
 	private String  agent_id;  //agent 아이디
 	private String  exec_req_id;  //agent상세설명
 	private String  agent_status;  //Agent 상태 (idle/busy/down)
 	private String  job_status ;  // Job 상태 
 
-	public String getRes_type() {
-		return res_type;
+	public String getRes_typ() {
+		return res_typ;
 	}
-	public void setRes_type(String res_type) {
-		this.res_type = res_type;
+	public void setRes_typ(String res_type) {
+		this.res_typ = res_type;
 	}
 	public String getAgent_id() {
 		return agent_id;
