@@ -19,7 +19,7 @@ public class MqSenderService {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 
-	private static final String EXCHANGE_NAME = "tongrpa-req-exchange";
+	private static final String EXCHANGE_NAME = "tong-rpa-exchange";
 
 	private static final Logger logger = LoggerFactory.getLogger(MqSenderService.class);
 	
@@ -39,10 +39,10 @@ public class MqSenderService {
 		JSONObject jobj=new JSONObject();
 		boolean result=true;
 		try {
-			jobj.put("EXEC_REQ_ID", jobExecReqId);
-			jobj.put("AGNT_ID", agentId);
-			jobj.put("REQ_DATA", jm.getJob_data());
-			jobj.put("REQ_TYP", jm.getJob_typ());
+			jobj.put("exec_req_id", jobExecReqId);
+			jobj.put("agent_id", agentId);
+			jobj.put("req_data", jm.getJob_data());
+			jobj.put("req_typ", jm.getJob_typ());
 			
 			// 대상 Agent 지정 
 			String routingKey=BIND_PREFIX+"."+ agentId+".req";

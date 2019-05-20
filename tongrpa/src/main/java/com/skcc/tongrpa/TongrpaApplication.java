@@ -28,12 +28,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class TongrpaApplication {
 
     
-	public final static String MESSAGE_QUEUE_NAME = "tong-rpa-queue";
-	public final static String MESSAGE_EXCHANGE_NAME = "tongrpa-result-exchange";
+	public final static String MESSAGE_QUEUE_NAME = "tongrpa-server-queue";
+	public final static String MESSAGE_EXCHANGE_NAME = "tong-rpa-exchange";
 	@Bean
 	public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
 		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-	    rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
+	    //rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
 	    return rabbitTemplate;
 	}
 
@@ -54,7 +54,7 @@ public class TongrpaApplication {
 	@Bean
 	Binding binding(Queue queue, TopicExchange exchange) {
 		///임시 
-		String bindkey="agent.result.*";
+		String bindkey="agent.*.result";
 		return BindingBuilder.bind(queue).to(exchange).with(bindkey);// agent id  bind
 	}
 
