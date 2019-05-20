@@ -135,10 +135,9 @@ public class MqMessageListener {
 			    String agentId=mqRecvModel.getAgent_id();
 				log.info("getReq_type <" + resType + ">");
 				log.info("getAgent_id <" + mqRecvModel.getAgent_id() + ">");
-				
+				String agentStatus=mqRecvModel.getAgent_status(); // 수신된 Agent 상태값
 				// Agent 상태체크 
 				if(resType.equals("HLTH")) {
-					String agentStatus=mqRecvModel.getAgent_status(); // 수신된 Agent 상태값
 					agService.updateAgentStatus(agentId, agentStatus); // Agent 상태값으로 DB  업데이트
 				}
 				// Job실행 결과 처리
@@ -146,6 +145,9 @@ public class MqMessageListener {
 					String jobExecReqId=mqRecvModel.getExec_req_id();
 					String jobStatus=mqRecvModel.getJob_status();
 					jobReqService.updateJobExecReqInfo(jobExecReqId, jobStatus);
+					
+					agService.updateAgentStatus(agentId, agentStatus); // Agent 상태값으로 DB  업데이트
+
 				}
 		}
 
