@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skcc.tongrpa.mq.MqRecvModel;
+
 @Service
 public class JobExecReqService {
 
@@ -59,9 +61,14 @@ public class JobExecReqService {
 	/*
 	 * Job 정보  수정
 	 */
-	public int  updateJobExecReqInfo(String jobExecReqId,String jobStatus) {
-		return jobReqdao.updateJobExecReqInfo(  jobExecReqId, jobStatus);
+	public int  updateJobExecReqInfo(String jobExecReqId,String jobStatus,String rltData) {
+		return jobReqdao.updateJobExecReqInfo(  jobExecReqId, jobStatus, rltData );
 	}
 
-
+	/*
+	 * Job 상태 정보  수정
+	 */
+	public int  updateJobExecReqStatus(String jobExecReqId,String jobStatus) {
+		return jobReqdao.updateJobExecReqStatus( jobExecReqId,jobStatus);
+	}
 }

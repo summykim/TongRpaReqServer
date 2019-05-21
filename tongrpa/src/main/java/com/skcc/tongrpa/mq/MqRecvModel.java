@@ -8,7 +8,14 @@ public class MqRecvModel {
 	private String  exec_req_id;  //agent상세설명
 	private String  agent_status;  //Agent 상태 (idle/busy/down)
 	private String  job_status ;  // Job 상태 
+	private String  rlt_data ; //결과 데이터
 
+	public String getRlt_data() {
+		return rlt_data;
+	}
+	public void setRlt_data(String rlt_data) {
+		this.rlt_data = rlt_data;
+	}
 	public String getRes_typ() {
 		return res_typ;
 	}

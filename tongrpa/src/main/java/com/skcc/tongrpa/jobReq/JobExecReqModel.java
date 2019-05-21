@@ -11,8 +11,15 @@ public class JobExecReqModel {
 	private String  reg_dtm ;  //등록일,
 	private String  upd_dtm ;  //업데이트일시
 	private String  agent_status ;  //agent상태
+	private String  rlt_data; // Job실행 결과 데이터
 	
 	
+	public String getRlt_data() {
+		return rlt_data;
+	}
+	public void setRlt_data(String rlt_data) {
+		this.rlt_data = rlt_data;
+	}
 	public String getAgent_status() {
 		return agent_status;
 	}

@@ -144,7 +144,14 @@ public class MqMessageListener {
 				else if(resType.equals("RLT")) {
 					String jobExecReqId=mqRecvModel.getExec_req_id();
 					String jobStatus=mqRecvModel.getJob_status();
-					jobReqService.updateJobExecReqInfo(jobExecReqId, jobStatus);
+					
+					if(jobStatus.equals("ING")) {// 실행 진행중
+						jobReqService.updateJobExecReqStatus(jobExecReqId,jobStatus);
+						
+					}else if(jobStatus.equals("CMP")) {//실행 완료
+						jobReqService.updateJobExecReqInfo(jobExecReqId,jobStatus,mqRecvModel.getRlt_data());
+						
+					}
 					
 					agService.updateAgentStatus(agentId, agentStatus); // Agent 상태값으로 DB  업데이트
 

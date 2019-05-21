@@ -12,6 +12,7 @@ public interface JobExecReqDao {
 	public List<JobExecReqModel> getJobExecReqList(String agentId,String jobId,String jobStatus,String jobExecReqId);
 	public JobExecReqModel getJobExecReqInfo(String jobExecReqId);
 	public int insertJobExecReq(String jobExecReqId,String agentId,String jobId,String regUser);
-	public int updateJobExecReqInfo(String jobExecReqId,String jobStatus);
+	public int updateJobExecReqInfo(String jobExecReqId,String jobStatus,String rltData);
+	public int updateJobExecReqStatus(String jobExecReqId,String jobStatus);
 }
 

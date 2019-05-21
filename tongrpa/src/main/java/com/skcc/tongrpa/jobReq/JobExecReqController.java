@@ -64,14 +64,16 @@ public class JobExecReqController {
 
 	/* Job 정보  수정 */
 	@RequestMapping("updateJobExecReqInfo")
-	public @ResponseBody HashMap<String, Object>  updateJob(@RequestParam(value="jobExecReqId") String jobExecReqId,
+	public @ResponseBody HashMap<String, Object>  updateJob(
+			@RequestParam(value="jobExecReqId") String jobExecReqId,
+			@RequestParam(value="jobRltData") String jobRltData,
 			@RequestParam(value="jobStatus") String jobStatus) {
 
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
 
-			resunt_cnt= jobReqService.updateJobExecReqInfo(  jobExecReqId, jobStatus);
+			resunt_cnt= jobReqService.updateJobExecReqInfo(  jobExecReqId, jobStatus , jobRltData);
 		}catch(Exception ex) {
 			resultMap.put("Exception", ex);
 		}

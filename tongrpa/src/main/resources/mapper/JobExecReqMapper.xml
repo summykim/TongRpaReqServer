@@ -30,8 +30,14 @@
    <update id="updateJobExecReqInfo">
     UPDATE JOB_EXEC_REQ_LOG 
     SET
-     JOB_STATUS= #{jobStatus}
+     JOB_STATUS= #{jobStatus},
+     RLT_DATA= #{rltData}
     WHERE EXEC_REQ_ID = #{jobExecReqId}
   </update>
-  
+   <update id="updateJobExecReqStatus">
+    UPDATE JOB_EXEC_REQ_LOG 
+    SET
+     JOB_STATUS= #{jobStatus}
+    WHERE EXEC_REQ_ID = #{jobExecReqId}
+  </update>  
 </mapper>
