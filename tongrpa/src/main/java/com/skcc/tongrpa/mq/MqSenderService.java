@@ -93,7 +93,7 @@ public class MqSenderService {
 				sendMqMessage(routingKey,jobj.toString());
 				
 				// Agent DB 상태  DOWN 처리
-				agntService.updateAgentStatus(agntM.getAgent_id(), AgentStaus.BUSY.toString());
+				agntService.updateAgentStatus(agntM.getAgent_id(), AgentStaus.DOWN.toString());
 				
 				
 			} catch (JSONException e) {
