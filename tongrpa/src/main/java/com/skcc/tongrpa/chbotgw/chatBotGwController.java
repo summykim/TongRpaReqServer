@@ -88,7 +88,7 @@ public class chatBotGwController {
 				// 가용 AGent 조회
 			     List<agentModel> amList=agService.getIdleAgentList();
 			     
-			     if(amList!=null) {//가용 Agent있음
+			     if(amList!=null && amList.size()>0) {//가용 Agent있음
 			    	  String idleAgentId=amList.get(0).getAgent_id();
 			    	  
 			    	  // DB 등록
@@ -100,7 +100,8 @@ public class chatBotGwController {
 			    	  result.put("result", execRlt);
 			     }else {//  전체 agent  다운됨
 			    	 
-			    	 
+			    	 result.put("result", false);
+			    	 result.put("cause", "alldown");
 			     }
 			}
 			
