@@ -25,9 +25,9 @@ public class agentController {
     
     /* agent 정보조   */
 	@RequestMapping("/agentList")
-	public @ResponseBody List<agentModel> getAgentList() {
+	public @ResponseBody List<agentModel> getAgentList(@RequestParam(value="searchText") String searchText) {
 
-		List<agentModel> list=  agentService.getAgentList();
+		List<agentModel> list=  agentService.getAgentList(searchText);
 
 		return   list;
 
@@ -35,8 +35,11 @@ public class agentController {
 
 	/* Agent 정보 조회 */
 	@RequestMapping("searchAgent")
-	public @ResponseBody agentModel  searchAgent(@RequestParam(value="agentId") String agentId) {
-		agentModel vo= agentService.getAgentInfo(agentId);
+	public @ResponseBody agentModel  searchAgent(
+			@RequestParam(value="agentId") String agentId,
+			@RequestParam(value="agentUid") String agentUid
+			) {
+		agentModel vo= agentService.getAgentInfo(agentId,agentUid);
 		return vo ;
 	}
 

@@ -109,45 +109,6 @@ public class chatBotGwController {
 			return result;
 		}
 		  
-	    /*   Job실행결과 테스트용   */
-		@RequestMapping("/jobExecReqResult")
-		public @ResponseBody HashMap<String,Object> jobExecReqResult(
-				@RequestParam(value="jobExecReqId") String jobExecReqId,
-				@RequestParam(value="agentStaus") String agentStaus,
-				@RequestParam(value="execStaus") String execStaus) {
-			
 
-			HashMap<String,Object> result=new HashMap<String,Object>();
-			
-			// JOB실행 정보조회
-			JobExecReqModel jeRM=jobReqService.getJobExecReqInfo(jobExecReqId);
-			
-			boolean execRlt=false;
-			if(jeRM!=null) {
-				execRlt=mqSenderService.agentExecResponseMqReturn(jeRM.getExec_req_id(),jeRM.getAgent_id(), agentStaus, execStaus);
-			}
-			
-			result.put("result", execRlt);
-			
-			return result;
-		}
-		
-	    /*   Agent상태 결과 테스트용   */
-		@RequestMapping("/agentHealthReqResult")
-		public @ResponseBody HashMap<String,Object> agentHealthReqResult(
-				@RequestParam(value="agentId") String agentId,
-				@RequestParam(value="status") String status) {
-			
 
-			HashMap<String,Object> result=new HashMap<String,Object>();
-			
-			
-			boolean execRlt=false;
-
-			execRlt=mqSenderService.agentHealthMqReturn(agentId, status);
-
-			result.put("result", execRlt);
-			
-			return result;
-		}		
 }

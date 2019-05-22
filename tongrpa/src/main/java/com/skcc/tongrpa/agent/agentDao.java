@@ -1,5 +1,6 @@
 package com.skcc.tongrpa.agent;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -9,8 +10,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface agentDao {
-	public List<agentModel> getAgentList();
-	public agentModel getAgentInfo(String agentId);
+	public List<agentModel> getAgentList(HashMap<String, String> hm);
+	public agentModel getAgentInfo(String agentId,String agentUid);
 	public int insertAgent(String agentId,String agentNm,String agentDesc,String agentUid,String agentStatus,String regUser);
 	public int updateAgentInfo(String agentId,String agentNm,String agentDesc,String agentUid,String agentStatus);
 	public int updateAgentUid(String agentId,String agentUid);

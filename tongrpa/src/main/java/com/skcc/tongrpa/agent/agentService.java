@@ -1,5 +1,6 @@
 package com.skcc.tongrpa.agent;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,11 +20,11 @@ public class agentService {
 	/*
 	 * Agent 정보 조회
 	 */
-	public agentModel getAgentInfo(String agentId){
+	public agentModel getAgentInfo(String agentId ,String agentUid){
 
 
 
-		return agentdao.getAgentInfo(agentId);
+		return agentdao.getAgentInfo(agentId,agentUid );
 
 	}
 	
@@ -42,10 +43,12 @@ public class agentService {
 	/*
 	 * Agent 전체  목록  조회
 	 */
-	public List<agentModel> getAgentList () {
+	public List<agentModel> getAgentList (String  searchText) {
 
+		HashMap<String, String> hm =new HashMap<String, String>();
+		hm.put("searchText", searchText);
 
-		return agentdao.getAgentList();
+		return agentdao.getAgentList(hm);
 
 	}
 	/*

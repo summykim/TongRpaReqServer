@@ -2,11 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.skcc.tongrpa.agent.agentDao" >
 
-   <select id="getAgentList" resultType="com.skcc.tongrpa.agent.agentModel">
-       select * from JOB_AGENT
+   <select id="getAgentList" resultType="com.skcc.tongrpa.agent.agentModel"  parameterType="hashmap">
+       select * from JOB_AGENT WHERE 1=1
+       	<if test="searchText !=null and  searchText !=''">
+		 AND (
+		        AGENT_NM  LIKE  CONCAT('%', #{searchText} ,'%') 
+		        OR 
+		        AGENT_DESC  LIKE  CONCAT('%', #{searchText} ,'%') 
+		        OR 
+		        AGENT_ID  LIKE  CONCAT('%', #{searchText} ,'%')		        
+		      )
+		</if>	
    </select>    
    <select id="getAgentInfo" resultType="com.skcc.tongrpa.agent.agentModel">
-       select * from JOB_AGENT WHERE AGENT_ID=#{agentId}
+       select * from JOB_AGENT WHERE  1=1
+       <if test="agentId !=null and  agentId !=''">
+		 AND AGENT_ID = #{agentId}
+		</if>	
+	    <if test="agentUid !=null and  agentUid !=''">
+		 AND AGENT_UID = #{agentUid}
+		</if>	
    </select>    
    
    

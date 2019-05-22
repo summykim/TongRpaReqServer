@@ -1,6 +1,7 @@
 package com.skcc.tongrpa.mq;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -11,13 +12,20 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.skcc.tongrpa.agent.agentModel;
+import com.skcc.tongrpa.agent.agentService;
+import com.skcc.tongrpa.code.AgentStaus;
 import com.skcc.tongrpa.job.JobModel;
 
 @Service
 public class MqSenderService {
+	
 
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
+	
+	@Autowired 
+	private agentService agntService;
 
 	private static final String EXCHANGE_NAME = "tong-rpa-exchange";
 
@@ -62,64 +70,42 @@ public class MqSenderService {
 		return result;
 	}
 	
-	// 에이전트 상태  결과 테스트
-	public boolean agentHealthMqReturn(String agentId, String status) {
+	// 에이전트 상태  결과 요청
+	public void agentHealthMqRequest() {
 		
-		// MQ 전송용 JSON 생성
-		JSONObject jobj=new JSONObject();
-		boolean result=true;
-		try {
-			jobj.put("AGNT_ID", agentId);
-			jobj.put("AGNT_STATUS", status);
-			jobj.put("RESP_TYPE", "HLTH");
+		// Agent 전체 목록조회
+		List<agentModel> agentList=agntService.getAgentList("");
+		
+		for(int i=0;i< agentList.size();i++) {
 			
-			// 대상 Agent 지정 
-			String routingKey=BIND_PREFIX+".result";
+			agentModel agntM=agentList.get(i);
 			
-			sendMqMessage(routingKey,jobj.toString());
 			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result=false;
-		}catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result=false;
+			
+			// MQ 전송용 JSON 생성
+			JSONObject jobj=new JSONObject();
+			try {
+				jobj.put("agent_id",agntM.getAgent_id() );
+				jobj.put("req_typ", "HLTH");
+				
+				// 대상 Agent 지정 
+				String routingKey=BIND_PREFIX+"."+ agntM.getAgent_id()+".req";
+				sendMqMessage(routingKey,jobj.toString());
+				
+				// Agent DB 상태  DOWN 처리
+				agntService.updateAgentStatus(agntM.getAgent_id(), AgentStaus.BUSY.toString());
+				
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 		}
-		
-		return result;
 	}
-	
-	// 에이전트 상태  결과 테스트
-	public boolean agentExecResponseMqReturn(String jobExecReqId, String agentId,String agentStaus,String execStaus) {
-		
-		// MQ 전송용 JSON 생성
-		JSONObject jobj=new JSONObject();
-		boolean result=true;
-		try {
-			jobj.put("EXEC_REQ_ID", jobExecReqId);
-			jobj.put("AGNT_ID", agentId);
-			jobj.put("AGENT_STATUS", agentStaus);
-			jobj.put("EXEC_STATUS", execStaus);
-			jobj.put("RESP_TYPE", "RLT");
-	
-			
-			// 대상 Agent 지정 
-			String routingKey=BIND_PREFIX+".result";
-			
-			sendMqMessage(routingKey,jobj.toString());
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result=false;
-		}catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result=false;
-		}
-		
-		return result;
-	}
+
 }
