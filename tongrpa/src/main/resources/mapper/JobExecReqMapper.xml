@@ -31,6 +31,7 @@
     UPDATE JOB_EXEC_REQ_LOG 
     SET
      JOB_STATUS= #{jobStatus},
+     RLT_STATUS= #{rltStatus},     
      RLT_DATA= #{rltData}
     WHERE EXEC_REQ_ID = #{jobExecReqId}
   </update>

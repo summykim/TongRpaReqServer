@@ -56,7 +56,7 @@ public class JobExecReqController {
 			jerm =jobReqService.getJobExecReqInfo(JobExecReqId);
 
 		}catch(Exception ex) {
-			resultMap.put("Exception", ex);
+			ex.printStackTrace();
 		}
 		resultMap.put("result", jerm);
 		return resultMap ;
@@ -72,10 +72,10 @@ public class JobExecReqController {
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
-
-			resunt_cnt= jobReqService.updateJobExecReqInfo(  jobExecReqId, jobStatus , jobRltData);
+			resunt_cnt= jobReqService.updateJobExecReqInfo(  jobExecReqId, jobStatus ,jobRltData);
+			
 		}catch(Exception ex) {
-			resultMap.put("Exception", ex);
+			ex.printStackTrace();
 		}
 		resultMap.put("result_cnt", resunt_cnt);
 		return resultMap ;

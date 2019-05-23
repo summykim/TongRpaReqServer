@@ -1,5 +1,6 @@
 package com.skcc.tongrpa.user;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -9,10 +10,12 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserDao {
-	public List<UserModel> getUserList();
-	public UserModel getUserInfo(String userId);
+	public List<UserModel> getUserList(HashMap<String, String> hm);
+	public UserModel getUserInfo(HashMap<String, String> hm);
 	public int insertUser(String userId,String userNm,String chbotKey,String userTyp,String regUser);
 	public int updateUser(String userId,String userNm,String chbotKey,String userTyp);
+	public int updateUserChBotKey(String userPhone,String chbotKey);
+	
 	public int deleteUser(String userId);
 }
 

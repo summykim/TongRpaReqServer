@@ -1,5 +1,6 @@
 package com.skcc.tongrpa.user;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,11 +20,10 @@ public class UserService {
 	/*
 	 * 사용자 정보 조회
 	 */
-	public UserModel getUserInfo(String userId) {
+	public UserModel getUserInfo(HashMap<String, String> hm) {
 
-		logger.info(" userId : ", userId);
 
-		return userDao.getUserInfo(userId);
+		return userDao.getUserInfo(hm);
 
 	}
 	
@@ -31,10 +31,10 @@ public class UserService {
 	/*
 	 * 사용자 전체  목록  조회
 	 */
-	public List<UserModel> getUserList () {
+	public List<UserModel> getUserList (HashMap<String, String> hm) {
 
 
-		return userDao.getUserList();
+		return userDao.getUserList(hm);
 
 	}
 	/*
@@ -54,6 +54,16 @@ public class UserService {
 		return userDao.updateUser( userId, userNm, chbotKey, userTyp);
 	}
 	
+	
+	/*
+	 * 사용자   챗봇키 정보  수정
+	 */
+	public int  updateUserChBotKey (String userPhone,String chbotKey) {
+		logger.debug("updateUserChBotKey  userPhone : ", userPhone);
+		
+		return userDao.updateUserChBotKey(userPhone,chbotKey);
+	}
+
 	/*
 	 * 사용자 정보  삭제
 	 */

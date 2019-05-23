@@ -62,7 +62,12 @@ public class JobExecReqService {
 	 * Job 정보  수정
 	 */
 	public int  updateJobExecReqInfo(String jobExecReqId,String jobStatus,String rltData) {
-		return jobReqdao.updateJobExecReqInfo(  jobExecReqId, jobStatus, rltData );
+		// 결과값의 성공여부  확인
+		String  rltStatus="fail";
+		if(rltData!=null && rltData.length()>0) {
+			 rltStatus="success";
+		}
+		return jobReqdao.updateJobExecReqInfo(  jobExecReqId, jobStatus,rltStatus, rltData );
 	}
 
 	/*

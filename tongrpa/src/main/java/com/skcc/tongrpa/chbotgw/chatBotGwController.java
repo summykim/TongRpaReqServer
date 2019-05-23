@@ -39,11 +39,19 @@ public class chatBotGwController {
     
     /*   사용자 인증    */
 	@RequestMapping("/getSearchUser")
-	public @ResponseBody HashMap<String,String> getSearchUser(@RequestParam(value="userId") String userId) {
+	public @ResponseBody HashMap<String,String> getSearchUser(
+			@RequestParam(value="userId", defaultValue="") String userId,
+			@RequestParam(value="chbotKey", defaultValue="") String chbotKey,
+			@RequestParam(value="userPhone") String userPhone) {
 
 		HashMap<String,String> result=new HashMap<String,String>();
 		
-		UserModel um=userService.getUserInfo(userId);
+		HashMap<String,String> hm=new HashMap<String,String>();
+		hm.put("userId", userId);
+		hm.put("chbotKey", chbotKey);
+		hm.put("userPhone", userPhone);
+		
+		UserModel um=userService.getUserInfo(hm);
 		if(um!=null) {
 			result.put("result", "success");
 		}else {
@@ -53,7 +61,24 @@ public class chatBotGwController {
 		return result;
 	}
 
+	/* 사용자  챗봇키 정보  업데이트  */
+	@RequestMapping("updateChBotKey")
+	public @ResponseBody HashMap<String, Object>  updateUserChBotKey(
+			@RequestParam(value="chbotKey") String chbotKey,
+			@RequestParam(value="userPhone") String userPhone) {
 
+		HashMap<String,Object> resultMap=new HashMap<String,Object>();
+		int resunt_cnt=0;
+		try {
+			resunt_cnt= userService.updateUserChBotKey(userPhone, chbotKey);
+			if(resunt_cnt>0)resultMap.put("result", "success");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap ;
+	}
     /*   Job검색 요청    */
 	@RequestMapping("/searchJobList")
 	public @ResponseBody HashMap<String,Object> searchJobList(@RequestParam(value="searchText") String searchText,

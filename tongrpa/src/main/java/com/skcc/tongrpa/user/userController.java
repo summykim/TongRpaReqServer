@@ -22,9 +22,14 @@ public class userController {
 	private static final Logger logger = LoggerFactory.getLogger(userController.class);
 
 	@RequestMapping("/userList")
-	public @ResponseBody List<UserModel> getUserList() {
-
-		List<UserModel> list=  userService.getUserList();
+	public @ResponseBody List<UserModel> getUserList(
+			@RequestParam(value="userId", defaultValue="") String userId,
+			@RequestParam(value="userNm", defaultValue="") String userNm
+			) {
+		HashMap<String, String> hm=new HashMap<String, String>();
+		hm.put("userId", userId);
+		hm.put("userNm", userNm);
+		List<UserModel> list=  userService.getUserList(hm);
 
 		return   list;
 
@@ -32,8 +37,20 @@ public class userController {
 
 	/* 사용자 정보 조회 */
 	@RequestMapping("searchUser")
-	public @ResponseBody UserModel  searchUser(@RequestParam(value="userId", defaultValue="") String userId) {
-		UserModel vo= userService.getUserInfo(userId);
+	public @ResponseBody UserModel  searchUser(
+			@RequestParam(value="userId", defaultValue="") String userId,
+			@RequestParam(value="chbotKey", defaultValue="") String chbotKey,
+			@RequestParam(value="userNm", defaultValue="") String userNm,
+			@RequestParam(value="userPhone", defaultValue="") String userPhone
+			  )  {
+		
+		HashMap<String, String> hm=new HashMap<String, String>();
+		hm.put("userId", userId);
+		hm.put("chbotKey", chbotKey);
+		hm.put("userNm", userNm);
+		hm.put("userPhone", userPhone);
+		
+		UserModel vo= userService.getUserInfo(hm);
 		return vo ;
 	}
 
@@ -42,8 +59,10 @@ public class userController {
 	@RequestMapping("insertUser")
 	public @ResponseBody HashMap<String, Object>  inserUser(@RequestParam(value="userId") String userId,
 			@RequestParam(value="userNm") String userNm,
-			@RequestParam(value="chbotKey") String chbotKey,
+			@RequestParam(value="chbotKey", defaultValue="") String chbotKey,
 			@RequestParam(value="userTyp") String userTyp,
+			@RequestParam(value="userPhone") String userPhone,
+			@RequestParam(value="userPwd", defaultValue="") String userPwd,
 			@RequestParam(value="regUser") String regUser ) {
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
@@ -51,7 +70,7 @@ public class userController {
 			resunt_cnt= userService.insertUser(userId, userNm, chbotKey, userTyp, regUser);
 
 		}catch(Exception ex) {
-			resultMap.put("Exception", ex);
+			ex.printStackTrace();
 		}
 		resultMap.put("result_cnt", resunt_cnt);
 		return resultMap ;
@@ -61,6 +80,7 @@ public class userController {
 	public @ResponseBody HashMap<String, Object>  updateUser(@RequestParam(value="userId") String userId,
 			@RequestParam(value="userNm") String userNm,
 			@RequestParam(value="chbotKey") String chbotKey,
+			@RequestParam(value="userPhone") String userPhone,
 			@RequestParam(value="userTyp") String userTyp) {
 
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
@@ -69,11 +89,29 @@ public class userController {
 
 			resunt_cnt= userService.updateUser(userId, userNm, chbotKey, userTyp);
 		}catch(Exception ex) {
-			resultMap.put("Exception", ex);
+			ex.printStackTrace();
 		}
 		resultMap.put("result_cnt", resunt_cnt);
 		return resultMap ;
 	}
+	
+	/* 사용자  챗봇키 정보  수정 */
+	@RequestMapping("updateUserChBotKey")
+	public @ResponseBody HashMap<String, Object>  updateUserChBotKey(
+			@RequestParam(value="chbotKey") String chbotKey,
+			@RequestParam(value="userPhone") String userPhone) {
+
+		HashMap<String,Object> resultMap=new HashMap<String,Object>();
+		int resunt_cnt=0;
+		try {
+			resunt_cnt= userService.updateUserChBotKey(userPhone, chbotKey);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		resultMap.put("result_cnt", resunt_cnt);
+		return resultMap ;
+	}
+	
 	/* 사용자 정보  삭제 */
 	@RequestMapping("deleteUser")
 	public @ResponseBody HashMap<String, Object>  deleteUser(@RequestParam(value="userId") String userId ) {
@@ -82,7 +120,7 @@ public class userController {
 		try {		
 			resunt_cnt= userService.deleteUser(userId);
 		}catch(Exception ex) {
-			resultMap.put("Exception", ex);
+			ex.printStackTrace();
 		}
 		resultMap.put("result_cnt", resunt_cnt);
 		return resultMap ;

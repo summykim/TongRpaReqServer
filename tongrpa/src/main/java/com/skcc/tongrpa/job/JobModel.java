@@ -13,7 +13,14 @@ public class JobModel {
 	private String  reg_user ;  // 등록자 
 	private String  reg_dtm ;  //등록일,
 	private String  upd_dtm ;  //업데이트일시
+	private String  job_tmout ;  //JOB 실행 타임아웃값(초단위)
 
+	public String getJob_tmout() {
+		return job_tmout;
+	}
+	public void setJob_tmout(String job_tmout) {
+		this.job_tmout = job_tmout;
+	}
 	public int getJob_seq() {
 		return job_seq;
 	}
