@@ -137,6 +137,8 @@ public class chatBotGwController {
 			    	 result.put("result", false);
 			    	 result.put("cause", "alldown");
 			     }
+			}else {
+				result.put("result", false);
 			}
 			
 			
