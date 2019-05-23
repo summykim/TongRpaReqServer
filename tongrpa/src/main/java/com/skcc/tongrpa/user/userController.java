@@ -62,12 +62,14 @@ public class userController {
 			@RequestParam(value="chbotKey", defaultValue="") String chbotKey,
 			@RequestParam(value="userTyp") String userTyp,
 			@RequestParam(value="userPhone") String userPhone,
+			@RequestParam(value="userEmail") String userEmail,
 			@RequestParam(value="userPwd", defaultValue="") String userPwd,
 			@RequestParam(value="regUser") String regUser ) {
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
-			resunt_cnt= userService.insertUser(userId, userNm, chbotKey, userTyp, regUser);
+			resunt_cnt= userService.insertUser(userId, userNm, chbotKey, userTyp,
+					regUser,userPhone,userPwd,userEmail);
 
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -81,13 +83,14 @@ public class userController {
 			@RequestParam(value="userNm") String userNm,
 			@RequestParam(value="chbotKey") String chbotKey,
 			@RequestParam(value="userPhone") String userPhone,
+			@RequestParam(value="userEmail") String userEmail,			
 			@RequestParam(value="userTyp") String userTyp) {
 
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
 
-			resunt_cnt= userService.updateUser(userId, userNm, chbotKey, userTyp);
+			resunt_cnt= userService.updateUser(userId, userNm, chbotKey, userTyp,userPhone,userEmail);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -99,12 +102,12 @@ public class userController {
 	@RequestMapping("updateUserChBotKey")
 	public @ResponseBody HashMap<String, Object>  updateUserChBotKey(
 			@RequestParam(value="chbotKey") String chbotKey,
-			@RequestParam(value="userPhone") String userPhone) {
+			@RequestParam(value="userEmail") String userEmail) {
 
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
-			resunt_cnt= userService.updateUserChBotKey(userPhone, chbotKey);
+			resunt_cnt= userService.updateUserChBotKey(userEmail, chbotKey);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}

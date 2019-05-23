@@ -40,28 +40,29 @@ public class UserService {
 	/*
 	 * 사용자 추가 
 	 */
-	public int  insertUser (String userId,String userNm,String chbotKey,String userTyp,String regUser) {
+	public int  insertUser (String userId,String userNm,String chbotKey,String userTyp,String regUser,
+			String userPhone,String userPwd,String userEmail) {
 		logger.info("insertUser  userId : ", userId);
-		return userDao.insertUser( userId, userNm, chbotKey, userTyp, regUser);
+		return userDao.insertUser( userId, userNm, chbotKey, userTyp, regUser,userPhone,userPwd,userEmail);
 	}
 	/*
 	 * 사용자 정보  수정
 	 */
-	public int  updateUser (String userId,String userNm,String chbotKey,String userTyp) {
+	public int  updateUser (String userId,String userNm,String chbotKey,String userTyp,String userPhone,String userEmail) {
 		logger.info("updateUser  userId : ", userId);
 		
 		
-		return userDao.updateUser( userId, userNm, chbotKey, userTyp);
+		return userDao.updateUser( userId, userNm, chbotKey, userTyp,userPhone,userEmail);
 	}
 	
 	
 	/*
 	 * 사용자   챗봇키 정보  수정
 	 */
-	public int  updateUserChBotKey (String userPhone,String chbotKey) {
-		logger.debug("updateUserChBotKey  userPhone : ", userPhone);
+	public int  updateUserChBotKey (String userEmail,String chbotKey) {
+		logger.debug("updateUserChBotKey  userEmail : ", userEmail);
 		
-		return userDao.updateUserChBotKey(userPhone,chbotKey);
+		return userDao.updateUserChBotKey(userEmail,chbotKey);
 	}
 
 	/*

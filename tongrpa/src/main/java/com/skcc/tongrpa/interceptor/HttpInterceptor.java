@@ -18,7 +18,7 @@ public class HttpInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) {
-        logger.info("================ Before Method");
+        logger.info("================ Before Method"+ request.getRequestURI());
         return true;
     }
 
@@ -28,7 +28,7 @@ public class HttpInterceptor implements HandlerInterceptor {
                            Object handler,
                            ModelAndView modelAndView) {
         logger.info("================ Method Executed");
-        response.getHeaders("interceptor").add("interceptor");
+       // response.getHeaders("interceptor").add("interceptor");
     }
 
     @Override
