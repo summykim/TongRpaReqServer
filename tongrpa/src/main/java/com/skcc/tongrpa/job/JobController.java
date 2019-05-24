@@ -45,13 +45,14 @@ public class JobController {
 			@RequestParam(value="jobNm") String jobNm,
 			@RequestParam(value="jobDesc") String jobDesc,
 			@RequestParam(value="jobData") String jobData,
+			@RequestParam(value="jobTmout", defaultValue="5") String jobTmout,
 			@RequestParam(value="jobTyp") String jobTyp,
 			@RequestParam(value="authUser") String authUser,
 			@RequestParam(value="regUser") String regUser ) {
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
-			resunt_cnt= jobInfoService.insertJob( jobNm, jobDesc, jobData,jobTyp,  authUser, regUser);
+			resunt_cnt= jobInfoService.insertJob( jobNm, jobDesc, jobData,jobTyp,  authUser, regUser,jobTmout);
 
 		}catch(Exception ex) {
 			resultMap.put("Exception", ex);
@@ -66,13 +67,14 @@ public class JobController {
 			@RequestParam(value="jobNm") String jobNm,
 			@RequestParam(value="jobDesc") String jobDesc,
 			@RequestParam(value="jobData") String jobData,
+			@RequestParam(value="jobTmout" , defaultValue="5") String jobTmout,
 			@RequestParam(value="jobTyp") String jobTyp) {
 
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
 
-			resunt_cnt= jobInfoService.updateJobInfo(jobId, jobNm, jobDesc, jobData,jobTyp);
+			resunt_cnt= jobInfoService.updateJobInfo(jobId, jobNm, jobDesc, jobData,jobTyp,jobTmout);
 		}catch(Exception ex) {
 			resultMap.put("Exception", ex);
 		}
