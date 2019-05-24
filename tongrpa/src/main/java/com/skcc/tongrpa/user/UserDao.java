@@ -21,5 +21,8 @@ public interface UserDao {
 	public int updateUserChBotKey(String userEmail,String chbotKey);
 	
 	public int deleteUser(String userId);
+	
+	public UserModel AdminUserLogin(HashMap<String, String> hm);
+	public int updateUserPwd(String userId,String userPwd);
 }
 

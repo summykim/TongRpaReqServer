@@ -9,9 +9,11 @@
          AND USER_ID=#{userId}
 		</if>
 		<if test="userNm !=null and  userNm !=''">
-		 AND userNm LIKE  CONCAT('%', #{userNm} ,'%')
+		 AND USER_NM LIKE  CONCAT('%', #{userNm} ,'%')
 		</if>	
    </select>    
+
+   
    <select id="getUserInfo" resultType="com.skcc.tongrpa.user.UserModel"  parameterType="hashmap" >
        select * from USER_INFO 
           WHERE 1=1
@@ -61,4 +63,14 @@
     DELETE FROM USER_INFO WHERE USER_ID = #{userId}
   </delete>
   
+   <select id="AdminUserLogin" resultType="com.skcc.tongrpa.user.UserModel" parameterType="hashmap" >
+       select * from USER_INFO
+         WHERE  USER_ID=#{userId} AND USER_PWD=#{userPwd} AND USER_TYP="ADM"
+   </select> 
+   <update id="updateUserPwd">
+    UPDATE USER_INFO 
+    SET
+     USER_PWD=#{userPwd}
+    WHERE USER_ID = #{userId}
+  </update>
 </mapper>

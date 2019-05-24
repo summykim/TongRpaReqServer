@@ -54,7 +54,39 @@ public class userController {
 		return vo ;
 	}
 
+	/*  Admin 사용자 로그인  */
+	@RequestMapping("AdminUserLogin")
+	public @ResponseBody HashMap<String, Object>  searchUser(
+			@RequestParam(value="userId") String userId,
+			@RequestParam(value="userPwd") String userPwd
+			  )  {
+		HashMap<String,Object> resultMap=new HashMap<String,Object>();
+		HashMap<String, String> hm=new HashMap<String, String>();
+		hm.put("userId", userId);
+		hm.put("userPwd", userPwd);
+		
+		UserModel vo= userService.AdminUserLogin(hm);
+		resultMap.put("result", vo);
+		return resultMap ;
+	}
+	
+	/* 사용자 정보  수정 */
+	@RequestMapping("updateUserPwd")
+	public @ResponseBody HashMap<String, Object>  updateUser(@RequestParam(value="userId") String userId,	
+			@RequestParam(value="userPwd") String userPwd) {
 
+		HashMap<String,Object> resultMap=new HashMap<String,Object>();
+		int resunt_cnt=0;
+		try {
+
+			resunt_cnt= userService.updateUserPwd(userId, userPwd);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		resultMap.put("result_cnt", resunt_cnt);
+		return resultMap ;
+	}
+	
 	/* 사용자 정보  추가 */
 	@RequestMapping("insertUser")
 	public @ResponseBody HashMap<String, Object>  inserUser(@RequestParam(value="userId") String userId,

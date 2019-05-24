@@ -73,4 +73,19 @@ public class UserService {
 		return userDao.deleteUser( userId);
 	}
 
+	/*
+	 * Admin 사용자 로그인
+	 */
+	public UserModel AdminUserLogin(HashMap<String, String> hm) {
+		return userDao.AdminUserLogin(hm);
+
+	}
+	/*
+	 * Admin 사용자  암호 수정 
+	 */
+	public int  updateUserPwd(String userId,String userPwd) {
+			
+		return userDao.updateUserPwd(userId,userPwd);
+	}
+
 }
