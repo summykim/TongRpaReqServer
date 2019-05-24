@@ -43,7 +43,7 @@
     UPDATE USER_INFO 
     SET
      USER_NM= #{userNm},
-     USER_PHONE=#{user_phone},
+     USER_PHONE=#{userPhone},
      CHBOT_KEY = #{chbotKey},
      USER_EMAIL=#{userEmail},
      USER_TYP = #{userTyp}
