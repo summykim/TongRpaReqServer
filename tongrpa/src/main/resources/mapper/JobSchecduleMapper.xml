@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.skcc.tongrpa.scheduler.JobScheduleDao" >
+
+   <select id="getJobScheduleList" parameterType="hashmap" resultType="com.skcc.tongrpa.scheduler.JobScheduleModel">
+       select * from JOB_SCHEDULE
+       WHERE 1=1  
+        <if test="id !=null and  id !=''">
+          AND  ID=#{id}
+        </if>
+        <if test="jobId !=null and  jobId !=''">
+          AND  ID=#{jobId}
+        </if>        
+    </select>    
+   <select id="getJobScheduleInfo" resultType="com.skcc.tongrpa.scheduler.JobScheduleModel">
+       select * from JOB_SCHEDULE  WHERE ID=#{id}
+   </select>    
+   
+  
+   <insert id="insertJobSchedule">
+
+    INSERT INTO JOB_SCHEDULE  (JOB_ID, CRON  ,REG_USER)
+    VALUES( #{jobId}, #{cron} , #{regUser})
+  </insert>
+
+   <update id="updateJobScheduleInfo">
+    UPDATE JOB_SCHEDULE 
+    SET
+     CRON= #{cron},
+     REG_USER = #{regUser}
+    WHERE ID = #{id}
+  </update>
+
+  <delete id="deleteScheduleJob">
+    DELETE FROM JOB_SCHEDULE WHERE  ID = #{id}
+  </delete>
+  
+</mapper>
