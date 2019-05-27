@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ public class JobExecReqController {
 	@Autowired
 	private JobExecReqService jobReqService;
     
+	private static final Logger logger = LoggerFactory.getLogger(JobExecReqController.class);
     /*  Job실행 요청  정보 목록 조회   */
 	@RequestMapping("/jobExecReqList")
 	public @ResponseBody List<JobExecReqModel> getJobList(
@@ -41,11 +44,12 @@ public class JobExecReqController {
 		}
 		
 		String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		logger.info("today :" + today);
 		if(staDt.length()==0) {
 			staDtm=today+" 00:00:00";
 		}
 		if(endDt.length()==0) {
-			endDtm=today+" 00:00:00";
+			endDtm=today+" 23:59:59";
 		}
 		
 		List<JobExecReqModel> list=  jobReqService.getJobExecReqList( agentId, jobId, jobStatus,jobExecReqId,staDtm,endDtm);

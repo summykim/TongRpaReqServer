@@ -4,7 +4,8 @@
 
    <select id="getJobExecReqList" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">
        SELECT JE.*,AI.AGENT_STATUS from JOB_EXEC_REQ_LOG JE, JOB_AGENT AI 
-        WHERE 1=1
+        WHERE 
+        JE.AGENT_ID=AI.AGENT_ID
        <if test="jobExecReqId !=null and  jobExecReqId !=''">
          AND JE.EXEC_REQ_ID=#{jobExecReqId}
 		</if>
