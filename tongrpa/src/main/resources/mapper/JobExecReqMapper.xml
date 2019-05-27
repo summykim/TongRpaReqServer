@@ -4,7 +4,7 @@
 
    <select id="getJobExecReqList" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">
        SELECT JE.*,AI.AGENT_STATUS from JOB_EXEC_REQ_LOG JE, JOB_AGENT AI 
-        WHERE JE.AGENT_ID=AI.AGENT_ID
+        WHERE 1=1
        <if test="jobExecReqId !=null and  jobExecReqId !=''">
          AND JE.EXEC_REQ_ID=#{jobExecReqId}
 		</if>
@@ -17,7 +17,12 @@
 		<if test="jobStatus !=null and  jobStatus !=''">
 		 AND JE.JOB_STATUS=#{jobStatus}
 		</if>
+		<if  test="staDtm !=null and  staDtm !='' and  endDtm !=null and  endDtm !=''" >
+		   AND  JE.UPD_DTM   BETWEEN CAST(#{staDtm}  AS DATETIME) AND CAST(#{endDtm} AS DATETIME)
+		</if>
+         ORDER BY JE.UPD_DTM DESC
    </select>    
+
    <select id="getJobExecReqInfo" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">
        select * from JOB_EXEC_REQ_LOG WHERE EXEC_REQ_ID=#{jobId}
    </select>    
