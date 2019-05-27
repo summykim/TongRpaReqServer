@@ -1,5 +1,7 @@
 package com.skcc.tongrpa.jobReq;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,12 +25,30 @@ public class JobExecReqController {
     /*  Job실행 요청  정보 목록 조회   */
 	@RequestMapping("/jobExecReqList")
 	public @ResponseBody List<JobExecReqModel> getJobList(
-			@RequestParam(value="agentId") String agentId,
-			@RequestParam(value="jobId") String jobId,
-			@RequestParam(value="jobExecReqId") String jobExecReqId,
-			@RequestParam(value="jobStatus") String jobStatus) {
-
-		List<JobExecReqModel> list=  jobReqService.getJobExecReqList( agentId, jobId, jobStatus,jobExecReqId);
+			@RequestParam(value="agentId", defaultValue="") String agentId,
+			@RequestParam(value="jobId", defaultValue="") String jobId,
+			@RequestParam(value="jobExecReqId", defaultValue="") String jobExecReqId,
+			@RequestParam(value="staDt" , defaultValue="") String staDt,
+			@RequestParam(value="endDt" , defaultValue="") String endDt,			
+			@RequestParam(value="jobStatus", defaultValue="") String jobStatus) {
+		
+		
+		String staDtm="";
+		String endDtm="";
+		if(staDt.length()==10 &&  endDt.length()==10) {
+			staDtm=staDt+" 00:00:00";
+			endDtm=endDt+" 23:59:59";
+		}
+		
+		String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		if(staDt.length()==0) {
+			staDtm=today+" 00:00:00";
+		}
+		if(endDt.length()==0) {
+			endDtm=today+" 00:00:00";
+		}
+		
+		List<JobExecReqModel> list=  jobReqService.getJobExecReqList( agentId, jobId, jobStatus,jobExecReqId,staDtm,endDtm);
 
 		return   list;
 

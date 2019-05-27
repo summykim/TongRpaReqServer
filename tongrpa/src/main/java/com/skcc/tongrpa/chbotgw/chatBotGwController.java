@@ -113,6 +113,7 @@ public class chatBotGwController {
 			
 			if(jm!=null) {// JOB정보확인 
 				 
+				
 				// 가용 AGent 조회
 			     List<agentModel> amList=agService.getIdleAgentList();
 			     

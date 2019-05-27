@@ -35,9 +35,9 @@ public class JobExecReqService {
 	/*
 	 * Job 전체  목록  조회
 	 */
-	public List<JobExecReqModel> getJobExecReqList (String agentId,String jobId,String jobStatus,String jobExecReqId) {
+	public List<JobExecReqModel> getJobExecReqList (String agentId,String jobId,String jobStatus,String jobExecReqId,String staDtm,String endStdm) {
 
-		return jobReqdao.getJobExecReqList(agentId,jobId,jobStatus,jobExecReqId);
+		return jobReqdao.getJobExecReqList(agentId,jobId,jobStatus,jobExecReqId,staDtm,endStdm);
 
 	}
 	/*
