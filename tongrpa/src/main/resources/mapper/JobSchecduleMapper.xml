@@ -11,7 +11,10 @@
         </if>
         <if test="jobId !=null and  jobId !=''">
           AND  ID=#{jobId}
-        </if>        
+        </if>      
+        <if test="BatchNm !=null and  BatchNm !=''">
+          AND  BATCH_NM LIKE  CONCAT('%', #{BatchNm} ,'%')
+         </if>                
     </select>    
    <select id="getJobScheduleInfo" resultType="com.skcc.tongrpa.scheduler.JobScheduleModel">
        select * from JOB_SCHEDULE  WHERE ID=#{id}
@@ -20,14 +23,15 @@
   
    <insert id="insertJobSchedule">
 
-    INSERT INTO JOB_SCHEDULE  (JOB_ID, CRON  ,REG_USER)
-    VALUES( #{jobId}, #{cron} , #{regUser})
+    INSERT INTO JOB_SCHEDULE  (JOB_ID, CRON  ,REG_USER,BATCH_NM)
+    VALUES( #{jobId}, #{cron} , #{regUser},#{batchNm})
   </insert>
 
    <update id="updateJobScheduleInfo">
     UPDATE JOB_SCHEDULE 
     SET
      CRON= #{cron},
+     BATCH_NM=#{batchNm},
      REG_USER = #{regUser}
     WHERE ID = #{id}
   </update>

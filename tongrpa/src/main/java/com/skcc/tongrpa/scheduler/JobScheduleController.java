@@ -25,7 +25,7 @@ public class JobScheduleController {
 	public @ResponseBody HashMap<String,Object >  StartJobScheduler(@RequestParam(value="id" , defaultValue="") String id) {
 		
          // 전체 스케쥴러 조회
-		 List<JobScheduleModel> schList=jobSchInfoService.getJobScheduleList(id, "");
+		 List<JobScheduleModel> schList=jobSchInfoService.getJobScheduleList(id, "","");
 		 int resultCnt=0;
 		 for(int i=0; i< schList.size();i++) {
 			 JobScheduleModel jsch= schList.get(i);
@@ -45,8 +45,8 @@ public class JobScheduleController {
 	@RequestMapping("/StopJobScheduler")
 	public @ResponseBody HashMap<String,Object >  StopJobScheduler(@RequestParam(value="id" , defaultValue="") String id) {
 		
-         // 전체 스케쥴러 조회
-		 List<JobScheduleModel> schList=jobSchInfoService.getJobScheduleList(id, "");
+         //  스케쥴러 조회
+		 List<JobScheduleModel> schList=jobSchInfoService.getJobScheduleList(id, "","");
 		 int resultCnt=0;
 		 for(int i=0; i< schList.size();i++) {
 			 JobScheduleModel jsch= schList.get(i);
@@ -65,16 +65,17 @@ public class JobScheduleController {
     /* scheduler  정보조회   */
 	@RequestMapping("/jobScheduleList")
 	public @ResponseBody List<JobScheduleModel> jobId(@RequestParam(value="id" , defaultValue="") String id,
-			@RequestParam(value="jobId" , defaultValue="") String jobId) {
+			@RequestParam(value="jobId" , defaultValue="") String jobId,
+			@RequestParam(value="batchNm" , defaultValue="") String batchNm) {
 
-		List<JobScheduleModel> list=  jobSchInfoService.getJobScheduleList(id,jobId);
+		List<JobScheduleModel> list=  jobSchInfoService.getJobScheduleList(id,jobId,batchNm);
 
 		return   list;
 
 	}
 
 	/* Job scheduler정보 조회 */
-	@RequestMapping("searchJobSchedule")
+	@RequestMapping("getJobScheduleInfo")
 	public @ResponseBody JobScheduleModel  searchJob(@RequestParam(value="id") String id) {
 		JobScheduleModel vo= jobSchInfoService.getJobScheduleInfo(id);
 		return vo ;
@@ -86,11 +87,12 @@ public class JobScheduleController {
 	public @ResponseBody HashMap<String, Object>  inserJob(
 			@RequestParam(value="jobId") String jobId,
 			@RequestParam(value="cron") String cron,
+			@RequestParam(value="batchNm") String batchNm,
 			@RequestParam(value="regUser") String regUser ) {
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
-			resunt_cnt= jobSchInfoService.insertJobSchedule(  jobId, cron, regUser);
+			resunt_cnt= jobSchInfoService.insertJobSchedule(  jobId, cron, regUser,batchNm);
 
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -103,13 +105,14 @@ public class JobScheduleController {
 	@RequestMapping("updateJobScheduleInfo")
 	public @ResponseBody HashMap<String, Object>  updateScheduleJob(@RequestParam(value="id") String id,
 			@RequestParam(value="cron") String cron,
+			@RequestParam(value="batchNm") String batchNm,
 			@RequestParam(value="regUser") String regUser ) {
 
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
 
-			resunt_cnt= jobSchInfoService.updateJobScheduleInfo(id,  cron, regUser);
+			resunt_cnt= jobSchInfoService.updateJobScheduleInfo(id,  cron, regUser,batchNm);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}

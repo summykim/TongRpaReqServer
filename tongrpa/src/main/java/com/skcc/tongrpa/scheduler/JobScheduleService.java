@@ -34,28 +34,29 @@ public class JobScheduleService {
 	/*
 	 * Job스케줄 전체  목록  조회
 	 */
-	public List<JobScheduleModel> getJobScheduleList (String id,String jobId) {
+	public List<JobScheduleModel> getJobScheduleList (String id,String jobId,String batchNm) {
 
 		HashMap<String, String> hm =new HashMap<String, String>();
 		hm.put("id", id);
 		hm.put("jobId", jobId);
+		hm.put("batchNm", batchNm);
 		return jobSchdao.getJobScheduleList(hm);
 
 	}
 	/*
 	 * Job 스케줄 추가 
 	 */
-	public int  insertJobSchedule(String jobId,String cron,String regUser) {
+	public int  insertJobSchedule(String jobId,String cron,String regUser,String batchNm) {
 		
 
 
-		return jobSchdao.insertJobSchedule( jobId, cron, regUser);
+		return jobSchdao.insertJobSchedule( jobId, cron, regUser,batchNm);
 	}
 	/*
 	 * Job스케줄 정보  수정
 	 */
-	public int  updateJobScheduleInfo(String id,String cron,String regUser) {
-		return jobSchdao.updateJobScheduleInfo(  id ,cron, regUser);
+	public int  updateJobScheduleInfo(String id,String cron,String regUser,String batchNm) {
+		return jobSchdao.updateJobScheduleInfo(  id ,cron, regUser, batchNm);
 	}
 
 
