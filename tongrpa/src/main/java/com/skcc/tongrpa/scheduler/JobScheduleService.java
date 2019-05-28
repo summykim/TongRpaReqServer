@@ -20,7 +20,7 @@ public class JobScheduleService {
 	private static final Logger logger = LoggerFactory.getLogger(JobScheduleService.class);
 
 	/*
-	 * Job 정보 조회
+	 * Job 스케쥴 정보 조회
 	 */
 	public JobScheduleModel getJobScheduleInfo(String id){
 
@@ -32,7 +32,7 @@ public class JobScheduleService {
 
 
 	/*
-	 * Job 전체  목록  조회
+	 * Job스케줄 전체  목록  조회
 	 */
 	public List<JobScheduleModel> getJobScheduleList (String id,String jobId) {
 
@@ -43,7 +43,7 @@ public class JobScheduleService {
 
 	}
 	/*
-	 * Job 추가 
+	 * Job 스케줄 추가 
 	 */
 	public int  insertJobSchedule(String jobId,String cron,String regUser) {
 		
@@ -52,7 +52,7 @@ public class JobScheduleService {
 		return jobSchdao.insertJobSchedule( jobId, cron, regUser);
 	}
 	/*
-	 * Job 정보  수정
+	 * Job스케줄 정보  수정
 	 */
 	public int  updateJobScheduleInfo(String id,String cron,String regUser) {
 		return jobSchdao.updateJobScheduleInfo(  id ,cron, regUser);
@@ -60,7 +60,7 @@ public class JobScheduleService {
 
 
 	/*
-	 * Job 정보  삭제
+	 * Job스케줄 정보  삭제
 	 */
 	public int  deleteJobSchedule (String id) {
 
