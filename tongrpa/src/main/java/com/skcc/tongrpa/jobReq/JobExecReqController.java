@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skcc.tongrpa.agent.agentModel;
+import com.skcc.tongrpa.agent.agentService;
+import com.skcc.tongrpa.job.JobModel;
+import com.skcc.tongrpa.job.JobService;
 import com.skcc.tongrpa.mq.MqSenderService;
 
 @RestController
@@ -23,8 +29,66 @@ public class JobExecReqController {
 	
 	@Autowired
 	private JobExecReqService jobReqService;
+	
+	@Autowired
+	private JobService jobService;
+	
+	@Autowired
+	private agentService agService;
     
 	private static final Logger logger = LoggerFactory.getLogger(JobExecReqController.class);
+	
+	
+	   /*   Batch Job실행 요청    */
+		@RequestMapping("/BatchjobExecReq")
+		public @ResponseBody HashMap<String,Object> BatchjobExecReq(@RequestParam(value="jobId") String jobId ,
+				@RequestParam(value="batchId") String batchId ,
+				HttpServletRequest request) {
+
+			HashMap<String,Object> result=new HashMap<String,Object>();
+			
+			// JOB 정보조회
+			JobModel jm=jobService.getJobInfo(jobId);
+			
+			if(jm!=null) {// JOB정보확인 
+				 
+				logger.info("BatchjobExecReq started...");;
+				// 가용 AGent 조회
+			     List<agentModel> amList=agService.getIdleAgentList();
+			     
+			     if(amList!=null && amList.size()>0) {//가용 Agent있음
+			    	  String idleAgentId=amList.get(0).getAgent_id();
+			    	  
+			    	  // DB 등록
+			    	  String  JobExecReqId=jobReqService.insertJobExecReq(idleAgentId, jobId, batchId);
+			    	  
+			    	  // MQ 등록 
+			    	  
+			    	  boolean execRlt=mqSenderService.jobExecRegMQ(JobExecReqId, idleAgentId, jm);
+			    	  result.put("result", execRlt);
+			    	  
+			    	  //JobExecResult?jobExecReqId=?
+			    	  
+			    	  String resultCheckUrl="/JobExecResult?jobExecReqId="+JobExecReqId;
+			    	  
+			    	  result.put("resultCheckUrl", resultCheckUrl);
+					logger.info("BatchjobExecReq end...");;
+			    	  
+			     }else {//  전체 agent  다운됨
+			    	 
+			    	 result.put("result", false);
+			    	 result.put("cause", "alldown");
+			     }
+			}else {
+				result.put("result", false);
+			}
+			
+			
+			
+			return result;
+		}
+		  
+	
     /*  Job실행 요청  정보 목록 조회   */
 	@RequestMapping("/jobExecReqList")
 	public @ResponseBody List<JobExecReqModel> getJobList(
