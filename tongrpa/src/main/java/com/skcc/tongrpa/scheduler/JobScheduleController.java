@@ -2,6 +2,7 @@ package com.skcc.tongrpa.scheduler;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,16 +28,20 @@ public class JobScheduleController {
          // 전체 스케쥴러 조회
 		 List<JobScheduleModel> schList=jobSchInfoService.getJobScheduleList(id, "","");
 		 int resultCnt=0;
+		 Map<String,Object> result_data=new  HashMap<String,Object>();
 		 for(int i=0; i< schList.size();i++) {
 			 JobScheduleModel jsch= schList.get(i);
-			 dynaSchService.addTaskToScheduler(jsch.getId(),jsch.getJob_id(),jsch.getCron());
-			 resultCnt++;
+			 boolean result=dynaSchService.addTaskToScheduler(jsch.getId(),jsch.getJob_id(),jsch.getCron());
+			 if(result) {
+				 resultCnt++;//성공
+			 }
+			 result_data.put(jsch.getId(), result);
 		 }
         
         
 		 HashMap<String,Object > resultMap=new HashMap<String,Object>();
 		 resultMap.put("result_cnt", resultCnt);
-		
+		 resultMap.put("result_data", result_data);
 		return   resultMap;
 
 	}
@@ -48,20 +53,46 @@ public class JobScheduleController {
          //  스케쥴러 조회
 		 List<JobScheduleModel> schList=jobSchInfoService.getJobScheduleList(id, "","");
 		 int resultCnt=0;
+		 Map<String,Object> result_data=new  HashMap<String,Object>();
 		 for(int i=0; i< schList.size();i++) {
 			 JobScheduleModel jsch= schList.get(i);
-			 dynaSchService.removeTaskFromScheduler(jsch.getId());
-			 resultCnt++;
+			 boolean  result=dynaSchService.removeTaskFromScheduler(jsch.getId());
+			 if(result) resultCnt++;//삭제성공
+			 result_data.put(jsch.getId(), result);
 		 }
         
         
 		 HashMap<String,Object > resultMap=new HashMap<String,Object>();
 		 resultMap.put("result_cnt", resultCnt);
+		 resultMap.put("result_data", result_data);
 		
 		return   resultMap;
 
 	}	
-    
+    /*  scheduler start   */
+	@RequestMapping("/StatusJobScheduler")
+	public @ResponseBody HashMap<String,Object >  StatusJobScheduler(@RequestParam(value="id" , defaultValue="") String id) {
+		
+         // 전체 스케쥴러 조회
+		 List<JobScheduleModel> schList=jobSchInfoService.getJobScheduleList(id, "","");
+		 int resultCnt=0;
+		 Map<String,Object> result_data=new  HashMap<String,Object>();
+		 for(int i=0; i< schList.size();i++) {
+			 JobScheduleModel jsch= schList.get(i);
+			 boolean result=dynaSchService.getTaskFromScheduler(jsch.getId());
+			 if(result) {
+				 resultCnt++;//성공
+			 }
+			 result_data.put(jsch.getId(), result);
+		 }
+        
+        
+		 HashMap<String,Object > resultMap=new HashMap<String,Object>();
+		 resultMap.put("result_cnt", resultCnt);
+		 resultMap.put("result_data", result_data);
+		return   resultMap;
+
+	}  
     /* scheduler  정보조회   */
 	@RequestMapping("/jobScheduleList")
 	public @ResponseBody List<JobScheduleModel> jobId(@RequestParam(value="id" , defaultValue="") String id,

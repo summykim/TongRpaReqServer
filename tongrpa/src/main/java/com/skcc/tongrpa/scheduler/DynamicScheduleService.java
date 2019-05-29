@@ -31,24 +31,44 @@ public class DynamicScheduleService {
     
     
     // Schedule Task to be executed every night at 00 or 12 am
-    public void addTaskToScheduler(String  taskId,String jobId, String cron) {
-    	
-    	CronTrigger crnTrigger = new CronTrigger(cron);
-    	  
-    	Runnable  TongRpaExecTask  = new  TongRpaExecTask(taskId ,jobId);
-    	
-        ScheduledFuture<?> scheduledTask = scheduler.schedule(TongRpaExecTask, crnTrigger);
-        
-        jobsMap.put(taskId, scheduledTask);
+    public boolean addTaskToScheduler(String  taskId,String jobId, String cron) {
+    	 boolean result=false;
+    	try {
+    		CronTrigger crnTrigger = new CronTrigger(cron);
+
+    		Runnable  TongRpaExecTask  = new  TongRpaExecTask(taskId ,jobId);
+
+    		ScheduledFuture<?> scheduledTask = scheduler.schedule(TongRpaExecTask, crnTrigger);
+
+    		jobsMap.put(taskId, scheduledTask);
+    		result=true;
+    	}catch (Exception ex) {
+    		ex.printStackTrace();
+
+    	}
+    	return result;
     }
-    
+    // scheduled task status 
+    public boolean getTaskFromScheduler(String  taskId) {
+        ScheduledFuture<?> scheduledTask = jobsMap.get(taskId);
+        boolean result=false;
+        if(scheduledTask != null) {
+        	result=true;
+        }
+        return result;
+    }
+        
     // Remove scheduled task 
-    public void removeTaskFromScheduler(String  taskId) {
+    public boolean removeTaskFromScheduler(String  taskId) {
+    	boolean result=false;
         ScheduledFuture<?> scheduledTask = jobsMap.get(taskId);
         if(scheduledTask != null) {
             scheduledTask.cancel(true);
             jobsMap.put(taskId, null);
+            result=true;
         }
+        
+        return result;
     }
     
     // A context refresh event listener
