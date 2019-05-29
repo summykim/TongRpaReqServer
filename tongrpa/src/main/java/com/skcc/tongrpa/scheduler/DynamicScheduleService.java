@@ -34,6 +34,11 @@ public class DynamicScheduleService {
     public boolean addTaskToScheduler(String  taskId,String jobId, String cron) {
     	 boolean result=false;
     	try {
+    		
+    		//존재하면 삭제
+    		if(getTaskFromScheduler(taskId)) {
+    			removeTaskFromScheduler(taskId);
+    		}
     		CronTrigger crnTrigger = new CronTrigger(cron);
 
     		Runnable  TongRpaExecTask  = new  TongRpaExecTask(taskId ,jobId);
