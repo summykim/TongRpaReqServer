@@ -7,12 +7,19 @@ public class JobScheduleModel {
 	private String  job_id; //job 아이디',
 	private String  cron; //cron 설정 ,
 	private String  batch_nm ;// batch명
+	private boolean  batch_status ;// batch상태
 	private String  reg_user ;  // 등록자 
 	private String  reg_dtm ;  //등록일,
 	private String  upd_dtm ;  //업데이트일시
 	
 	
 
+	public boolean getBatch_status() {
+		return batch_status;
+	}
+	public void setBatch_status(boolean batch_status) {
+		this.batch_status = batch_status;
+	}
 	public String getBatch_nm() {
 		return batch_nm;
 	}

@@ -100,6 +100,16 @@ public class JobScheduleController {
 			@RequestParam(value="batchNm" , defaultValue="") String batchNm) {
 
 		List<JobScheduleModel> list=  jobSchInfoService.getJobScheduleList(id,jobId,batchNm);
+		
+		if(list!=null) {
+			for(int i=0;i < list.size();i++) {
+				JobScheduleModel jm=list.get(i);
+				
+				boolean batch_status=dynaSchService.getTaskFromScheduler(jm.getId());
+				jm.setBatch_status(batch_status);
+				
+			}
+		}
 
 		return   list;
 
