@@ -78,6 +78,34 @@ public class chatBotGwController {
 		
 		return resultMap ;
 	}
+	/* 사용자  챗봇키 정보  업데이트  */
+	@RequestMapping("userDrop")
+	public @ResponseBody HashMap<String, Object>  userDrop(
+			@RequestParam(value="chbotKey") String chbotKey) {
+
+		HashMap<String,Object> resultMap=new HashMap<String,Object>();
+		int resunt_cnt=0;
+		try {
+			
+			HashMap<String,String> hm=new HashMap<String,String>();
+			hm.put("chbotKey", chbotKey);			
+			UserModel um=userService.getUserInfo(hm);		
+			if(um !=null) {
+				resunt_cnt= userService.updateUserChBotKey(um.getUser_email(), "");
+				if(resunt_cnt>0)resultMap.put("result", true);
+				else resultMap.put("result", false);
+			}else {
+				resultMap.put("result", false);
+			}
+
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			resultMap.put("result", false);
+		}
+		
+		return resultMap ;
+	}
     /*   Job검색 요청    */
 	@RequestMapping("/searchJobList")
 	public @ResponseBody HashMap<String,Object> searchJobList(@RequestParam(value="searchText", defaultValue="") String searchText,
