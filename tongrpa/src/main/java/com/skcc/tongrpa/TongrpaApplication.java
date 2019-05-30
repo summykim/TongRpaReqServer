@@ -1,4 +1,6 @@
 package com.skcc.tongrpa;
+import java.util.TimeZone;
+
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -71,6 +73,7 @@ public class TongrpaApplication {
 	
 	
 	public static void main(String[] args) {
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
 		SpringApplication.run(TongrpaApplication.class, args);
 	}
 	
