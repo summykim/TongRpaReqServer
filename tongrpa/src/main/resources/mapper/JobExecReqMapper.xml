@@ -23,7 +23,21 @@
 		</if>
          ORDER BY JE.UPD_DTM DESC
    </select>    
-
+   <select id="getJobExecReqStat" resultType="hashmap">
+		SELECT UPD_DT ,agent_id, sum(success_cnt) success_cnt , sum(fail_cnt) fail_cnt, sum(delay_cnt) delay_cnt
+		FROM 
+		(SELECT  agent_id, DATE_FORMAT(UPD_DTM, '%Y%m%d') UPD_DT,
+		      ( CASE rlt_status WHEN 'success'  THEN 1   ELSE 0    END    ) AS success_cnt,
+		      ( CASE rlt_status WHEN 'fail'  THEN 1   ELSE 0    END    ) AS fail_cnt,
+		      ( CASE rlt_status WHEN 'success'  THEN 0  WHEN 'fail'  THEN  0   ELSE 1    END    ) AS delay_cnt
+		FROM  JOB_EXEC_REQ_LOG
+			<if  test="staDtm !=null and  staDtm !='' and  endDtm !=null and  endDtm !=''" >
+			  WHERE   upd_dtm   BETWEEN CAST(#{staDtm}  AS DATETIME) AND CAST(#{endDtm} AS DATETIME)
+			</if>
+		 ) TB
+		 group by  UPD_DT, agent_id 
+ 
+   </select> 
    <select id="getJobExecReqInfo" resultType="com.skcc.tongrpa.jobReq.JobExecReqModel">
        select * from JOB_EXEC_REQ_LOG WHERE EXEC_REQ_ID=#{jobId}
    </select>    

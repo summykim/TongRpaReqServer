@@ -2,6 +2,7 @@ package com.skcc.tongrpa.jobReq;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -33,13 +34,23 @@ public class JobExecReqService {
 
 
 	/*
-	 * Job 전체  목록  조회
+	 * Job실행결과 전체  목록  조회
 	 */
 	public List<JobExecReqModel> getJobExecReqList (String agentId,String jobId,String jobStatus,String jobExecReqId,String staDtm,String endStdm) {
 
 		return jobReqdao.getJobExecReqList(agentId,jobId,jobStatus,jobExecReqId,staDtm,endStdm);
 
 	}
+	
+	/*
+	 * Job실행결과 통계  조회
+	 */
+	public List<HashMap> getJobExecReqStat(String staDtm,String endDtm) {
+
+		return jobReqdao.getJobExecReqStat(staDtm,endDtm);
+
+	}
+	
 	/*
 	 * Job 추가 
 	 */

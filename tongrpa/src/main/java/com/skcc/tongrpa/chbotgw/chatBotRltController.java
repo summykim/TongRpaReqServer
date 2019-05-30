@@ -1,5 +1,8 @@
 package com.skcc.tongrpa.chbotgw;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +47,28 @@ public class chatBotRltController {
 		return codeNm;
 	}
 	@GetMapping({"/CheckAgentStatus" })
-	public String  CheckAgentStatus(Model model) {
+	public String  CheckAgentStatus(Model model			,
+			@RequestParam(value="staDt" , defaultValue="") String staDt,
+			@RequestParam(value="endDt" , defaultValue="") String endDt) {
 
 
 		List<agentModel> list = agentService.getAgentList("");
-
 		
 		model.addAttribute("result",list);
+		
+		
+		String staDtm="";
+		String endDtm="";
+		String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		if(staDt.length()==0) {
+			staDtm=today+" 00:00:00";
+		}
+		if(endDt.length()==0) {
+			endDtm=today+" 23:59:59";
+		}
+		
+		List<HashMap> statlist = jobReqService.getJobExecReqStat(staDtm, endDtm);
+		model.addAttribute("resultStat",statlist);
 
         return "/CheckAgentStatus";
 	}
