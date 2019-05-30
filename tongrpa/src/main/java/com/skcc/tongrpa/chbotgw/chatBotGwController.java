@@ -70,6 +70,7 @@ public class chatBotGwController {
 		try {
 			resunt_cnt= userService.updateUserChBotKey(userEmail, chbotKey);
 			if(resunt_cnt>0)resultMap.put("result", true);
+			else resultMap.put("result", false);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			resultMap.put("result", false);
