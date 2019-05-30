@@ -34,6 +34,30 @@
      </c:forEach>  
     </tbody>
   </table>
+  <table class="table table-hover">
+    <thead>
+
+      <tr>
+        <th>날짜</th>
+        <th>AgentID</th>
+        <th>성공</th>
+        <th>실패</th>
+        <th>지연처리</th>        
+       </tr>
+  
+    </thead>
+    <tbody>
+     <c:forEach items="${resultStat}" var="info">
+      <tr>
+        <td>${info.UPD_DT}</td>
+        <td>${info.agent_id}</td>
+        <td>${info.success_cnt}</td>
+        <td>${info.fail_cnt}</td>
+        <td>${info.delay_cnt}</td>
+      </tr>
+     </c:forEach>  
+    </tbody>
+  </table>
   <button type="button" class="btn btn-primary" onclick="location.reload();">새로고침</button> 
 </div>
 </body>
