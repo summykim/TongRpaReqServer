@@ -52,7 +52,7 @@ public class JobExecReqController {
 			
 			if(jm!=null) {// JOB정보확인 
 				 
-				logger.info("BatchjobExecReq started...");;
+				logger.debug("BatchjobExecReq started...");;
 				// 가용 AGent 조회
 			     List<agentModel> amList=agService.getIdleAgentList();
 			     
@@ -72,7 +72,7 @@ public class JobExecReqController {
 			    	  String resultCheckUrl="/JobExecResult?jobExecReqId="+JobExecReqId;
 			    	  
 			    	  result.put("resultCheckUrl", resultCheckUrl);
-					logger.info("BatchjobExecReq end...");;
+					logger.debug("BatchjobExecReq end...");;
 			    	  
 			     }else {//  전체 agent  다운됨
 			    	 
@@ -108,7 +108,7 @@ public class JobExecReqController {
 		}
 		
 		String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		logger.info("today :" + today);
+		logger.debug("today :" + today);
 		if(staDt.length()==0) {
 			staDtm=today+" 00:00:00";
 		}

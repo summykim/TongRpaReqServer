@@ -41,7 +41,7 @@ public class ScheduledTasks {
 	@Scheduled(cron = "0 * * * * *")
 	public void performTaskUsingCron() {
 
-		logger.info("Agent Health Check Request "+ dateFormat.format(new Date()));
+		logger.debug("Agent Health Check Request "+ dateFormat.format(new Date()));
 		
 		mqSender.agentHealthMqRequest();
 

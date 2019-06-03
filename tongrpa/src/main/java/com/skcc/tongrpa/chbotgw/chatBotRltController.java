@@ -79,7 +79,7 @@ public class chatBotRltController {
 			endDtm=today+" 23:59:59";
 		}
 		
-		logger.info(staDtm + " ~ " +endDtm);
+		logger.debug(staDtm + " ~ " +endDtm);
 		List<HashMap> statlist = jobReqService.getJobExecReqStat(staDtm, endDtm);
 		model.addAttribute("resultStat",statlist);
 

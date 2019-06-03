@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="warn" monitorInterval="30">
+<Configuration status="debug" monitorInterval="30">
     <Properties>
         <Property name="LOG_FORMAT">%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Property>
-        <Property name="BASE_DIR">/appwork/tongrpa_logs/</Property>
+        <Property name="BASE_DIR">/tongapp/logs/</Property>
     </Properties>
 
     <Appenders>

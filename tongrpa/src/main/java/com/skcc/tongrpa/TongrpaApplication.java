@@ -1,6 +1,8 @@
 package com.skcc.tongrpa;
 import java.util.TimeZone;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -17,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.skcc.tongrpa.interceptor.HttpInterceptor;
 import com.skcc.tongrpa.mq.MqMessageListener;
 
 
@@ -26,7 +29,7 @@ import com.skcc.tongrpa.mq.MqMessageListener;
 @EnableScheduling
 public class TongrpaApplication {
 
-    
+	private static final Logger logger = LogManager.getLogger(TongrpaApplication.class);
 	public final static String MESSAGE_QUEUE_NAME = "tongrpa-server-queue";
 	public final static String MESSAGE_EXCHANGE_NAME = "tong-rpa-exchange";
 	@Bean
@@ -73,6 +76,8 @@ public class TongrpaApplication {
 	
 	
 	public static void main(String[] args) {
+		
+		logger.info("Starting Spring Boot application..");
 		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
 		SpringApplication.run(TongrpaApplication.class, args);
 	}

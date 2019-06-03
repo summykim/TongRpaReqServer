@@ -36,7 +36,7 @@ public class MqSenderService {
 
 	public void sendMqMessage(String routingKey, String json) {
 
-		logger.info(" sending the message with routing key {}", routingKey);
+		logger.debug(" sending the message with routing key {}", routingKey);
 
 		rabbitTemplate.convertAndSend(EXCHANGE_NAME, routingKey, json);
 	}
@@ -55,7 +55,7 @@ public class MqSenderService {
 			
 			// 대상 Agent 지정 
 			String routingKey=BIND_PREFIX+"."+ agentId+".req";
-			logger.info("send mq < "+jobj.toString() +" >");
+			logger.debug("send mq < "+jobj.toString() +" >");
 			sendMqMessage(routingKey,jobj.toString());
 			
 		} catch (JSONException e) {
