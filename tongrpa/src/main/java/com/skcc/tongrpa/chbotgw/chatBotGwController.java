@@ -51,7 +51,8 @@ public class chatBotGwController {
 		
 		UserModel um=userService.getUserInfo(hm);
 		if(um!=null) {
-			result.put("result",true);
+			result.put("result", true);
+			result.put("userName", um.getUser_nm());
 		}else {
 			result.put("result", false);
 		}
@@ -68,8 +69,16 @@ public class chatBotGwController {
 		HashMap<String,Object> resultMap=new HashMap<String,Object>();
 		int resunt_cnt=0;
 		try {
+			
 			resunt_cnt= userService.updateUserChBotKey(userEmail, chbotKey);
-			if(resunt_cnt>0)resultMap.put("result", true);
+			if(resunt_cnt>0) {
+				HashMap<String,String> hm=new HashMap<String,String>();
+				hm.put("chbotKey", chbotKey);
+				
+				UserModel um=userService.getUserInfo(hm);
+				resultMap.put("result", true);
+				resultMap.put("userName", um.getUser_nm());
+			}
 			else resultMap.put("result", false);
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -92,7 +101,8 @@ public class chatBotGwController {
 			UserModel um=userService.getUserInfo(hm);		
 			if(um !=null) {
 				resunt_cnt= userService.updateUserChBotKey(um.getUser_email(), "");
-				if(resunt_cnt>0)resultMap.put("result", true);
+				if(resunt_cnt>0)
+					resultMap.put("result", true);
 				else resultMap.put("result", false);
 			}else {
 				resultMap.put("result", false);
