@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.4/dist/css/bootstrap.min.css">
     <script src="/webjars/jquery/2.1.3/dist/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.4/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.2.0/json2html.min.js"></script>
 </head>
 <body>
 <div class="container" >
@@ -17,7 +18,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>항목</th>
+        <th style="width:20%">항목</th>
         <th>내용</th>
        </tr>
     </thead>
