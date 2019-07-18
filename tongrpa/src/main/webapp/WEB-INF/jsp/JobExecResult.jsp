@@ -12,14 +12,14 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.2.0/json2html.min.js"></script>
 </head>
 <body>
-<div class="container" >
+<div class="container-fluid" >
   <h3>통선임 RPA 실행결과</h3>
   <p>챗봇을 통한 실행 결과를 볼수 있습니다.</p>           
   <table class="table table-hover">
     <thead>
       <tr>
         <th style="width:20%">항목</th>
-        <th>내용</th>
+        <th style="width:80%">내용</th>
        </tr>
     </thead>
     <tbody>
