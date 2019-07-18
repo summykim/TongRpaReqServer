@@ -187,5 +187,21 @@ public class chatBotGwController {
 		}
 		  
 
+		   /*   Job실행 요청 상태   */
+			@RequestMapping("/jobExecStatus")
+			public @ResponseBody HashMap<String,Object> jobExecStatus(@RequestParam(value="jobExecReqId", required=true) String jobExecReqId) {
 
+				HashMap<String,Object> result=new HashMap<String,Object>();
+				
+				// JOB 정보조회
+				JobExecReqModel jm= jobReqService.getJobExecReqInfo(jobExecReqId);
+				
+	
+				result.put("result", jm);
+
+				
+				
+				return result;
+			}
+			  
 }
