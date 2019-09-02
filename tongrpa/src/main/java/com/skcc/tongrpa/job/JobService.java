@@ -45,7 +45,7 @@ public class JobService {
 	/*
 	 * Job 추가 
 	 */
-	public int  insertJob(String jobNm,String jobDesc,String jobData,String jobTyp,String authUser,String regUser,String jobTmout) {
+	public int  insertJob(String jobNm,String jobDesc,String jobData,String jobTyp,String authUser,String regUser,String jobTmout,String workspaceId) {
 		
 		String curTimekey=new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 		JobModel jobSeqInfo=jobdao.getJobSeqByUser(authUser);
@@ -57,13 +57,13 @@ public class JobService {
 			jobSeq=jobSeqInfo.getJob_seq();
 			jobId=authUser+String.format("%03d",jobSeq)+curTimekey;
 		}
-		return jobdao.insertJob(jobId ,jobNm, jobDesc, jobData,jobTyp,jobSeq,  authUser, regUser,jobTmout);
+		return jobdao.insertJob(jobId ,jobNm, jobDesc, jobData,jobTyp,jobSeq,  authUser, regUser,jobTmout,workspaceId);
 	}
 	/*
 	 * Job 정보  수정
 	 */
-	public int  updateJobInfo(String jobId,String jobNm,String jobDesc,String jobData,String jobTyp,String jobTmout) {
-		return jobdao.updateJobInfo(  jobId, jobNm, jobDesc, jobData,jobTyp,jobTmout);
+	public int  updateJobInfo(String jobId,String jobNm,String jobDesc,String jobData,String jobTyp,String jobTmout,String workspaceId) {
+		return jobdao.updateJobInfo(  jobId, jobNm, jobDesc, jobData,jobTyp,jobTmout,workspaceId);
 	}
 
 

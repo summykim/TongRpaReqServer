@@ -4,7 +4,7 @@
 <mapper namespace="com.skcc.tongrpa.job.JobDao" >
 
    <select id="getJobList" parameterType="hashmap" resultType="com.skcc.tongrpa.job.JobModel">
-       select * from JOB_INFO
+       select * , (case  when workspace_id='' then 'N'  else 'Y' end ) SCENARIO_YN from JOB_INFO
        WHERE 1=1
  		<if test="authUser !=null and  authUser !=''">
          AND AUTH_USER=#{authUser}
@@ -26,8 +26,8 @@
    </select>      
    <insert id="insertJob">
 
-    INSERT INTO JOB_INFO(JOB_ID, JOB_NM, JOB_DESC, JOB_DATA,JOB_TYP,JOB_SEQ,AUTH_USER,REG_USER,JOB_TMOUT)
-    VALUES(#{jobId}, #{jobNm}, #{jobDesc}, #{jobData}, #{jobTyp}, #{jobSeq},#{authUser}, #{regUser},#{jobTmout})
+    INSERT INTO JOB_INFO(JOB_ID, JOB_NM, JOB_DESC, JOB_DATA,JOB_TYP,JOB_SEQ,AUTH_USER,REG_USER,JOB_TMOUT,WORKSPACE_ID)
+    VALUES(#{jobId}, #{jobNm}, #{jobDesc}, #{jobData}, #{jobTyp}, #{jobSeq},#{authUser}, #{regUser},#{jobTmout},#{workspaceId})
   </insert>
 
    <update id="updateJobInfo">
@@ -36,6 +36,7 @@
      JOB_NM= #{jobNm},
      JOB_DESC = #{jobDesc},
      JOB_DATA = #{jobData},
+     WORKSPACE_ID = #{workspaceId},
      JOB_TMOUT = #{jobTmout},
      JOB_TYP= #{jobTyp}
     WHERE JOB_ID = #{jobId}

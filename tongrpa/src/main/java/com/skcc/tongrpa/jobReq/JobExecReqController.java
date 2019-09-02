@@ -64,7 +64,7 @@ public class JobExecReqController {
 			    	  
 			    	  // MQ 등록 
 			    	  
-			    	  boolean execRlt=mqSenderService.jobExecRegMQ(JobExecReqId, idleAgentId, jm);
+			    	  boolean execRlt=mqSenderService.jobExecRegMQ(JobExecReqId, idleAgentId, jm,"");
 			    	  result.put("result", execRlt);
 			    	  
 			    	  //JobExecResult?jobExecReqId=?
