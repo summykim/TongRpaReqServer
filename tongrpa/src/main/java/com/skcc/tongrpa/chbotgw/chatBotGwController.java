@@ -1,10 +1,14 @@
 package com.skcc.tongrpa.chbotgw;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +42,9 @@ public class chatBotGwController {
 	
 	@Autowired
 	private agentService agService;
-    
+	
+	private static final Logger logger = LoggerFactory.getLogger(chatBotGwController.class);
+	
     /*   사용자 인증    */
 	@RequestMapping("/checkUser")
 	public @ResponseBody HashMap<String,Object> getSearchUser(
@@ -150,7 +156,7 @@ public class chatBotGwController {
 	   /*   Job실행 요청    */
 		@RequestMapping("/jobExecReq")
 		public @ResponseBody HashMap<String,Object> jobExecReq(@RequestParam(value="jobId") String jobId 
-				,@RequestParam(value="jobExecParam") String jobExecParam 
+				,@RequestParam(value="jobExecParam" , defaultValue="") String jobExecParam 
 				,HttpServletRequest request) {
 
 			HashMap<String,Object> result=new HashMap<String,Object>();
@@ -160,7 +166,16 @@ public class chatBotGwController {
 			
 			if(jm!=null) {// JOB정보확인 
 				 
+				if(!jobExecParam.equals("")) {
+					try {
+						jobExecParam=URLDecoder.decode(jobExecParam,"UTF-8");
+						
+						logger.debug("jobExecParam==>",jobExecParam);
 				
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+					}
+				}
 				// 가용 AGent 조회
 			     List<agentModel> amList=agService.getIdleAgentList();
 			     
