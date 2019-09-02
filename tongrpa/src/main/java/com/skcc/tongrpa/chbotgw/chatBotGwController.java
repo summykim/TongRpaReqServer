@@ -1,5 +1,7 @@
 package com.skcc.tongrpa.chbotgw;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -130,6 +132,12 @@ public class chatBotGwController {
 		
 		List<JobModel> jmList=jobService.getJobList(searchText,um.getUser_id());
 		if(jmList!=null) {
+		    List<agentModel> amList=agService.getIdleAgentList();
+		    if(amList!=null) {
+		    	result.put("execEnable", true);
+		    }else {
+		    	result.put("execEnable", false);
+		    }
 			result.put("result", "success");
 			result.put("jobList", jmList);
 		}else {
@@ -143,7 +151,9 @@ public class chatBotGwController {
 	
 	   /*   Job실행 요청    */
 		@RequestMapping("/jobExecReq")
-		public @ResponseBody HashMap<String,Object> jobExecReq(@RequestParam(value="jobId") String jobId ,HttpServletRequest request) {
+		public @ResponseBody HashMap<String,Object> jobExecReq(@RequestParam(value="jobId") String jobId 
+				,@RequestParam(value="jobExecParam" , defaultValue="") String jobExecParam 
+				,HttpServletRequest request) {
 
 			HashMap<String,Object> result=new HashMap<String,Object>();
 			
@@ -151,8 +161,15 @@ public class chatBotGwController {
 			JobModel jm=jobService.getJobInfo(jobId);
 			
 			if(jm!=null) {// JOB정보확인 
-				 
-				
+				 if(!jobExecParam.equals("")) {
+					 try {
+						jobExecParam=URLDecoder.decode(jobExecParam,"UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				 }
+
 				// 가용 AGent 조회
 			     List<agentModel> amList=agService.getIdleAgentList();
 			     
@@ -164,7 +181,7 @@ public class chatBotGwController {
 			    	  
 			    	  // MQ 등록 
 			    	  
-			    	  boolean execRlt=mqSenderService.jobExecRegMQ(JobExecReqId, idleAgentId, jm);
+			    	  boolean execRlt=mqSenderService.jobExecRegMQ(JobExecReqId, idleAgentId, jm,jobExecParam);
 			    	  result.put("result", execRlt);
 			    	  
 			    	  //JobExecResult?jobExecReqId=?
