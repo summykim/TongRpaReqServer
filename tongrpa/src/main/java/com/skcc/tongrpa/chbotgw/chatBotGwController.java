@@ -171,7 +171,7 @@ public class chatBotGwController {
 						logger.debug("jobExecParam before ==>",jobExecParam);
 						jobExecParam=URLDecoder.decode(jobExecParam,"UTF-8");
 						
-						logger.debug("jobExecParam==>",jobExecParam);
+						logger.debug("jobExecParam after ==>",jobExecParam);
 						
 				
 					} catch (UnsupportedEncodingException e) {
