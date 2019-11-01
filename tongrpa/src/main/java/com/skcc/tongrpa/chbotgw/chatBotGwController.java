@@ -168,11 +168,14 @@ public class chatBotGwController {
 				 
 				if(!jobExecParam.equals("")) {
 					try {
-						logger.debug("jobExecParam before ==>",jobExecParam);
-						jobExecParam=URLDecoder.decode(jobExecParam,"UTF-8");
+						String jobExecParam_tmp=jobExecParam.replace("%", "%25");
+						logger.debug("jobExecParam before ==>",jobExecParam_tmp);
 						
-						logger.debug("jobExecParam after ==>",jobExecParam);
+						String encoded_jobExecParam=new String(URLDecoder.decode(jobExecParam_tmp,"UTF-8"));
 						
+						jobExecParam =encoded_jobExecParam.replace("%25", "%");
+						logger.debug("jobExecParam==>",jobExecParam);
+
 				
 					} catch (UnsupportedEncodingException e) {
 						e.printStackTrace();
