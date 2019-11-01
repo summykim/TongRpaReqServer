@@ -168,6 +168,7 @@ public class chatBotGwController {
 				 
 				if(!jobExecParam.equals("")) {
 					try {
+						logger.debug("jobExecParam before ==>",jobExecParam);
 						jobExecParam=URLDecoder.decode(jobExecParam,"UTF-8");
 						
 						logger.debug("jobExecParam==>",jobExecParam);
