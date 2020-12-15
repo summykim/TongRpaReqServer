@@ -41,7 +41,7 @@ public class MqSenderService {
 		rabbitTemplate.convertAndSend(EXCHANGE_NAME, routingKey, json);
 	}
 	
-	public boolean jobExecRegMQ(String jobExecReqId, String agentId,JobModel jm ) {
+	public boolean jobExecRegMQ(String jobExecReqId, String agentId,JobModel jm ,String req_param) {
 		
 		// MQ 전송용 JSON 생성
 		JSONObject jobj=new JSONObject();
@@ -50,6 +50,7 @@ public class MqSenderService {
 			jobj.put("exec_req_id", jobExecReqId);
 			jobj.put("agent_id", agentId);
 			jobj.put("req_data", jm.getJob_data());
+			jobj.put("req_param", req_param);
 			jobj.put("req_typ", jm.getJob_typ());
 			jobj.put("job_tmout", jm.getJob_tmout());
 			

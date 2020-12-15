@@ -7,6 +7,8 @@ public class JobModel {
 	private String  job_nm; //job 명',
 	private String  job_desc; //job상세설명',
 	private String  job_data; //job 실행 데이터(스크립트소스, url)',
+	private String  workspace_id; //workspace_id',
+	private String  scenario_yn; // SCENARIo존재여부
 	private String  job_typ; //job구분: RST/PY',	
 	private int  job_seq; //사용자별job seq',
 	private String  auth_user; // JOB 소유자
@@ -15,6 +17,18 @@ public class JobModel {
 	private String  upd_dtm ;  //업데이트일시
 	private String  job_tmout ;  //JOB 실행 타임아웃값(초단위)
 
+	public String getScenario_yn() {
+		return scenario_yn;
+	}
+	public void setScenario_yn(String scenario_yn) {
+		this.scenario_yn = scenario_yn;
+	}
+	public String getWorkspace_id() {
+		return workspace_id;
+	}
+	public void setWorkspace_id(String workspace_id) {
+		this.workspace_id = workspace_id;
+	}
 	public String getJob_tmout() {
 		return job_tmout;
 	}
